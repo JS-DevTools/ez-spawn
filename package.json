@@ -1,0 +1,60 @@
+{
+  "name": "chai-exec",
+  "version": "0.0.1",
+  "description": "Chai plugin for testing CLIs",
+  "keywords": [
+    "chai",
+    "chai-plugin",
+    "cli",
+    "spawn",
+    "exec"
+  ],
+  "author": {
+    "name": "Randall Krauskopf",
+    "url": "http://github.com/rkrauskopf"
+  },
+  "contributors": [
+    "Randall Krauskopf (http://github.com/rkrauskopf)",
+    "James Messinger (http://jamesmessinger.com)"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/rkrauskopf/chai-exec",
+  "main": "lib/index.js",
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "lint": "eslint lib test --fix",
+    "test": "mocha",
+    "cover": "istanbul cover _mocha",
+    "upgrade": "npm-check -u",
+    "bump": "bump --prompt --tag --push --all",
+    "release": "npm run upgrade && npm test && npm run bump && npm publish"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rkrauskopf/chai-exec.git"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "chai-as-promised": "^6.0.0",
+    "codacy-coverage": "^2.0.0",
+    "coveralls": "^2.11.14",
+    "eslint": "^3.9.0",
+    "eslint-config-modular": "^1.0.1",
+    "istanbul": "^0.4.5",
+    "mocha": "^3.1.2",
+    "npm-check": "^5.4.0",
+    "proxyquire": "^1.7.10",
+    "sinon": "^1.17.6",
+    "version-bump-prompt": "^1.7.2"
+  },
+  "dependencies": {
+    "call-me-maybe": "^1.0.1",
+    "string-argv": "0.0.2",
+    "type-detect": "^4.0.0"
+  },
+  "engines": {
+    "node": ">=4"
+  }
+}
