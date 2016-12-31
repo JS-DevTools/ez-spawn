@@ -1,0 +1,3 @@
+--bail
+--retries 2
+test/specs/*.js
