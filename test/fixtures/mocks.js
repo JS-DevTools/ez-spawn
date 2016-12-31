@@ -12,9 +12,6 @@ const mocks = module.exports = {
 
 function spawnSyncStub (command, args, options) {
   if (mocks.shouldThrow) {
-    if (mocks.shouldThrow instanceof Error) {
-      return { error: mocks.shouldThrow };
-    }
     return { error: new Error('Could not start program') };
   }
   return {};
