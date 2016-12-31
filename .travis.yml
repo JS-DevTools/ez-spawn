@@ -12,10 +12,6 @@ matrix:
     - node_js: 6
     - node_js: 7
 
-before_script:
-  - npm link
-  - npm link browserify-banner
-
 script:
   - npm run lint
   - npm run cover
