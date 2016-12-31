@@ -1,0 +1,2 @@
+# ez-spawn
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/aa187e0355154fc59b97bdaa2482006c)](https://www.codacy.com/app/randall-krauskopf/ez-spawn?utm_source=github.com&utm_medium=referral&utm_content=rkrauskopf/ez-spawn&utm_campaign=badger)
