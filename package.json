@@ -1,13 +1,14 @@
 {
-  "name": "chai-exec",
+  "name": "ez-spawn",
   "version": "0.0.1",
-  "description": "Chai plugin for testing CLIs",
+  "description": "Simple, consistent sync or async process spawning",
   "keywords": [
-    "chai",
-    "chai-plugin",
     "cli",
+    "process",
     "spawn",
-    "exec"
+    "exec",
+    "sync",
+    "async"
   ],
   "author": {
     "name": "Randall Krauskopf",
@@ -18,7 +19,7 @@
     "James Messinger (http://jamesmessinger.com)"
   ],
   "license": "MIT",
-  "homepage": "https://github.com/rkrauskopf/chai-exec",
+  "homepage": "https://github.com/rkrauskopf/ez-spawn",
   "main": "lib/index.js",
   "files": [
     "lib"
@@ -33,11 +34,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/rkrauskopf/chai-exec.git"
+    "url": "https://github.com/rkrauskopf/ez-spawn.git"
   },
   "devDependencies": {
     "chai": "^3.5.0",
-    "chai-as-promised": "^6.0.0",
     "codacy-coverage": "^2.0.0",
     "coveralls": "^2.11.14",
     "eslint": "^3.9.0",
@@ -45,8 +45,6 @@
     "istanbul": "^0.4.5",
     "mocha": "^3.1.2",
     "npm-check": "^5.4.0",
-    "proxyquire": "^1.7.10",
-    "sinon": "^1.17.6",
     "version-bump-prompt": "^1.7.2"
   },
   "dependencies": {
