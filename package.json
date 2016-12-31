@@ -1,6 +1,6 @@
 {
   "name": "ez-spawn",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Simple, consistent sync or async process spawning",
   "keywords": [
     "cli",
@@ -46,7 +46,7 @@
     "mocha": "^3.1.2",
     "npm-check": "^5.4.0",
     "sinon": "^1.17.7",
-    "version-bump-prompt": "^1.7.2"
+    "version-bump-prompt": "^3.0.0"
   },
   "dependencies": {
     "call-me-maybe": "^1.0.1",
