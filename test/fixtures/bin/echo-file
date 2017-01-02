@@ -1,0 +1,25 @@
+#!/usr/bin/env node
+
+/**
+ *
+ * This program writes the contents of the specified file to stdout
+ *
+ */
+'use strict';
+
+const fs = require('fs');
+
+let file = process.argv[2];
+
+if (!file) {
+  console.error('No file name was specified');
+  process.exit(1);
+}
+
+if (!fs.existsSync(file)) {
+  console.error(`Unable to find file: ${file}`);
+  process.exit(2);
+}
+
+let data = fs.readFileSync(file);
+process.stdout.write(data);

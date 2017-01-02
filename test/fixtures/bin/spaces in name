@@ -1,0 +1,10 @@
+#!/usr/bin/env node
+
+/**
+ *
+ * This program is just a copy of "echo-args", but with spaces in the name,
+ * which lets us make sure that ez-spawn properly handles spaces in file names.
+ *
+ */
+
+require('./echo-args');

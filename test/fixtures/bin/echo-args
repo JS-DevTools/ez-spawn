@@ -1,0 +1,12 @@
+#!/usr/bin/env node
+
+/**
+ *
+ * This program simply echoes its arguments to stdout.
+ *
+ */
+
+process.argv.slice(2).forEach((arg, index) => {
+  console.log(`Argument #${index + 1}: ${arg}`);
+});
+
