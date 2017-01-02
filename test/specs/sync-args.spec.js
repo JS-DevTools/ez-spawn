@@ -32,6 +32,40 @@ describe('ezSpawn.sync argument parsing', () => {
     expect(process.output.toString()).to.equal('');
   });
 
+  it('should run a command with spaces in the name, with an empty args array', () => {
+    // If the `args` parameter is specified (even if it's empty),
+    // then the `command` parameter is interpreted as the entire command,
+    // even if it contains spaces.  So no quotes are needed.
+    // This is consistent with how child_process.spawn() behaves.
+    let process = ezSpawn.sync('test/fixtures/bin/spaces in name', []);
+
+    // Make sure the process was spawned without any arguments
+    expect(process.command).to.equal('test/fixtures/bin/spaces in name');
+    expect(process.args).to.deep.equal([]);
+
+    // The output should be blank
+    expect(process.stdout.toString()).to.equal('');
+    expect(process.stderr.toString()).to.equal('');
+    expect(process.output.toString()).to.equal('');
+  });
+
+  it('should run a command with spaces in the name, with an empty args string', () => {
+    // If the `args` parameter is specified (even if it's empty),
+    // then the `command` parameter is interpreted as the entire command,
+    // even if it contains spaces.  So no quotes are needed.
+    // This is consistent with how child_process.spawn() behaves.
+    let process = ezSpawn.sync('test/fixtures/bin/spaces in name', '');
+
+    // Make sure the process was spawned without any arguments
+    expect(process.command).to.equal('test/fixtures/bin/spaces in name');
+    expect(process.args).to.deep.equal([]);
+
+    // The output should be blank
+    expect(process.stdout.toString()).to.equal('');
+    expect(process.stderr.toString()).to.equal('');
+    expect(process.output.toString()).to.equal('');
+  });
+
   it('should run a command and arguments, specified as a string', () => {
     let process = ezSpawn.sync('test/fixtures/bin/echo-args --foo --bar=baz');
 
