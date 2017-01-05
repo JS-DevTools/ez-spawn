@@ -107,6 +107,77 @@ describe('ezSpawn.sync argument parsing', () => {
     expect(process.output.toString()).to.equal(expectedOutput);
   });
 
+  it('should run a command with arguments with spaces, specified as an array', () => {
+    let process = ezSpawn.sync('test/fixtures/bin/echo-args', ['--foo="bar baz"', '"bip bop"']);
+
+    // Make sure the process was spawned with the correct arguments
+    expect(process.command).to.equal('test/fixtures/bin/echo-args');
+    expect(process.args).to.deep.equal([
+      '--foo="bar baz"', '"bip bop"'
+    ]);
+
+    // The output should contain each argument on its own line
+    let expectedOutput =
+      'Argument #1: --foo="bar baz"\n' +
+      'Argument #2: "bip bop"\n';
+
+    expect(process.stderr.toString()).to.equal('');
+    expect(process.stdout.toString()).to.equal(expectedOutput);
+    expect(process.output.toString()).to.equal(expectedOutput);
+
+  });
+
+  it('should run a command with arguments passed in as individual parameters', () => {
+    let process = ezSpawn.sync('test/fixtures/bin/echo-args', '--foo="bar baz"', '"bip bop"');
+
+    // Make sure the process was spawned with the correct arguments
+    expect(process.command).to.equal('test/fixtures/bin/echo-args');
+    expect(process.args).to.deep.equal([
+      '--foo="bar baz"', '"bip bop"'
+    ]);
+
+    // The output should contain each argument on its own line
+    let expectedOutput =
+      'Argument #1: --foo="bar baz"\n' +
+      'Argument #2: "bip bop"\n';
+
+    expect(process.stderr.toString()).to.equal('');
+    expect(process.stdout.toString()).to.equal(expectedOutput);
+    expect(process.output.toString()).to.equal(expectedOutput);
+  });
+
+  it('should run a command with no arguments and an options object as parameters', () => {
+    let process = ezSpawn.sync('test/fixtures/bin/echo-args', { cwd: undefined });
+
+    // Make sure the process was spawned without any arguments
+    expect(process.command).to.equal('test/fixtures/bin/echo-args');
+    expect(process.args).to.deep.equal([]);
+
+    // The output should be blank
+    expect(process.stdout.toString()).to.equal('');
+    expect(process.stderr.toString()).to.equal('');
+    expect(process.output.toString()).to.equal('');
+  });
+
+  it('should run a command with arguments and an options object as parameters', () => {
+    let process = ezSpawn.sync('test/fixtures/bin/echo-args --foo --bar=baz', { cwd: undefined });
+
+    // Make sure the process was spawned with the correct arguments
+    expect(process.command).to.equal('test/fixtures/bin/echo-args');
+    expect(process.args).to.deep.equal([
+      '--foo', '--bar=baz'
+    ]);
+
+    // The output should contain each argument on its own line
+    let expectedOutput =
+      'Argument #1: --foo\n' +
+      'Argument #2: --bar=baz\n';
+
+    expect(process.stderr.toString()).to.equal('');
+    expect(process.stdout.toString()).to.equal(expectedOutput);
+    expect(process.output.toString()).to.equal(expectedOutput);
+  });
+
   describe('failure tests', () => {
     it('should throw an error if no args are passed', () => {
       try {
@@ -129,6 +200,29 @@ describe('ezSpawn.sync argument parsing', () => {
         expect(error.message).to.equal('The command to execute is missing.');
       }
     });
+
+    it('should throw and error if the command is not a string', () => {
+      try {
+        ezSpawn.sync({}, 'args');
+        chai.assert(false, 'no error was thrown');
+      }
+      catch (error) {
+        expect(error).to.be.an.instanceOf(Error);
+        expect(error.message).to.equal('The command to execute should be a string, not an Object.');
+      }
+    });
+
+    it('should throw an error if the command args are not strings or arrays', () => {
+      try {
+        ezSpawn.sync('test/fixtures/bin/echo-args', ['--foo', {}]);
+        chai.assert(false, 'no error was thrown');
+      }
+      catch (error) {
+        expect(error).to.be.an.instanceOf(Error);
+        expect(error.message).to.equal('The command arguments should be strings, but argument #2 is an Object.');
+      }
+    });
+
   });
 
 });
