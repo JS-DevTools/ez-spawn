@@ -15,8 +15,8 @@ module.exports = function runArgTestSuite (isAsync) {
   // Set this so that the sync-async-normalize module knows which ezSpawn process to call.
   global.isAsync = isAsync;
 
-  it('should run a command without any args', (done) => {
-    syncAsync(path.join(__dirname, 'bin/echo-args'))
+  it('should run a command without any args', () => {
+    return syncAsync(path.join(__dirname, 'bin/echo-args'))
       .then((process) => {
         // Make sure the process was spawned without any arguments
         expect(process.command).to.equal(path.join(__dirname, 'bin/echo-args'));
@@ -26,13 +26,11 @@ module.exports = function runArgTestSuite (isAsync) {
         expect(process.stdout.toString()).to.equal('');
         expect(process.stderr.toString()).to.equal('');
         expect(process.output.toString()).to.equal('');
-
-        done();
       });
   });
 
-  it('should run a command without any args with only an options object param', (done) => {
-    syncAsync(path.join(__dirname, 'bin/echo-args'), { cwd: undefined })
+  it('should run a command without any args with only an options object param', () => {
+    return syncAsync(path.join(__dirname, 'bin/echo-args'), { cwd: undefined })
       .then((process) => {
         expect(process.args).to.deep.equal([]);
 
@@ -40,13 +38,11 @@ module.exports = function runArgTestSuite (isAsync) {
         expect(process.stdout.toString()).to.equal('');
         expect(process.stderr.toString()).to.equal('');
         expect(process.output.toString()).to.equal('');
-
-        done();
       });
   });
 
-  it('should run a command with spaces in the name', (done) => {
-    syncAsync('"bin/spaces in name"')
+  it('should run a command with spaces in the name', () => {
+    return syncAsync('"bin/spaces in name"')
       .then((process) => {
         // Make sure the process was spawned without any arguments
         expect(process.command).to.equal('bin/spaces in name');
@@ -56,18 +52,14 @@ module.exports = function runArgTestSuite (isAsync) {
         expect(process.stdout.toString()).to.equal('');
         expect(process.stderr.toString()).to.equal('');
         expect(process.output.toString()).to.equal('');
-
-        done();
-
       });
-
   });
 
   describe('with individual param args', () => {
 
     // Ex. --foo --bar="baz"
-    it('should run a command with args that have a -- key and key/value notation', (done) => {
-      syncAsync(path.join(__dirname, 'bin/echo-args'), '--foo', '--bar="baz"')
+    it('should run a command with args that have a -- key and key/value notation', () => {
+      return syncAsync(path.join(__dirname, 'bin/echo-args'), '--foo', '--bar="baz"')
         .then((process) => {
           expect(process.args).to.deep.equal([
             '--foo', '--bar="baz"'
@@ -81,15 +73,12 @@ module.exports = function runArgTestSuite (isAsync) {
           expect(process.stderr.toString()).to.equal('');
           expect(process.stdout.toString()).to.equal(expectedOutput);
           expect(process.output.toString()).to.equal(expectedOutput);
-
-          done();
         });
-
     });
 
     // Ex. --foo --foo
-    it('should run a command with repeating args', (done) => {
-      syncAsync(path.join(__dirname, 'bin/echo-args'), '--foo', '--foo')
+    it('should run a command with repeating args', () => {
+      return syncAsync(path.join(__dirname, 'bin/echo-args'), '--foo', '--foo')
         .then((process) => {
           expect(process.args).to.deep.equal([
             '--foo', '--foo'
@@ -103,14 +92,12 @@ module.exports = function runArgTestSuite (isAsync) {
           expect(process.stderr.toString()).to.equal('');
           expect(process.stdout.toString()).to.equal(expectedOutput);
           expect(process.output.toString()).to.equal(expectedOutput);
-
-          done();
         });
     });
 
     // Ex. --foo="bar baz" "bip bop"
-    it('should run a command with key/value notation with quotes', (done) => {
-      syncAsync(path.join(__dirname, 'bin/echo-args'), '--foo="bar baz"', 'bip bop')
+    it('should run a command with key/value notation with quotes', () => {
+      return syncAsync(path.join(__dirname, 'bin/echo-args'), '--foo="bar baz"', 'bip bop')
         .then((process) => {
           expect(process.args).to.deep.equal([
             '--foo="bar baz"', 'bip bop'
@@ -124,13 +111,11 @@ module.exports = function runArgTestSuite (isAsync) {
           expect(process.stderr.toString()).to.equal('');
           expect(process.stdout.toString()).to.equal(expectedOutput);
           expect(process.output.toString()).to.equal(expectedOutput);
-
-          done();
         });
     });
 
-    it('should run a command with arguments quoted as strings', (done) => {
-      syncAsync(path.join(__dirname, 'bin/echo-args'), '"foo bar"', '"baz fiz"')
+    it('should run a command with arguments quoted as strings', () => {
+      return syncAsync(path.join(__dirname, 'bin/echo-args'), '"foo bar"', '"baz fiz"')
         .then((process) => {
           expect(process.args).to.deep.equal([
             '"foo bar"', '"baz fiz"'
@@ -144,13 +129,11 @@ module.exports = function runArgTestSuite (isAsync) {
           expect(process.stderr.toString()).to.equal('');
           expect(process.stdout.toString()).to.equal(expectedOutput);
           expect(process.output.toString()).to.equal(expectedOutput);
-
-          done();
         });
     });
 
-    it('should run a command with with commands and args with an options object', (done) => {
-      syncAsync(path.join(__dirname, 'bin/echo-args'), '"foo bar"', '"baz fiz"', { cwd: undefined })
+    it('should run a command with with commands and args with an options object', () => {
+      return syncAsync(path.join(__dirname, 'bin/echo-args'), '"foo bar"', '"baz fiz"', { cwd: undefined })
         .then((process) => {
           expect(process.args).to.deep.equal([
             '"foo bar"', '"baz fiz"'
@@ -164,8 +147,6 @@ module.exports = function runArgTestSuite (isAsync) {
           expect(process.stderr.toString()).to.equal('');
           expect(process.stdout.toString()).to.equal(expectedOutput);
           expect(process.output.toString()).to.equal(expectedOutput);
-
-          done();
         });
 
     });
@@ -173,8 +154,8 @@ module.exports = function runArgTestSuite (isAsync) {
 
   describe('with an arg array', () => {
     // Ex. --foo --bar="baz"
-    it('should run a command with args that have a -- key and key/value notation', (done) => {
-      syncAsync(path.join(__dirname, 'bin/echo-args'), ['--foo', '--bar="baz"'])
+    it('should run a command with args that have a -- key and key/value notation', () => {
+      return syncAsync(path.join(__dirname, 'bin/echo-args'), ['--foo', '--bar="baz"'])
         .then((process) => {
           expect(process.args).to.deep.equal([
             '--foo', '--bar="baz"'
@@ -188,14 +169,12 @@ module.exports = function runArgTestSuite (isAsync) {
           expect(process.stderr.toString()).to.equal('');
           expect(process.stdout.toString()).to.equal(expectedOutput);
           expect(process.output.toString()).to.equal(expectedOutput);
-
-          done();
         });
     });
 
     // Ex. --foo --foo
-    it('should run a command with repeating args', (done) => {
-      syncAsync(path.join(__dirname, 'bin/echo-args'), ['--foo', '--foo'])
+    it('should run a command with repeating args', () => {
+      return syncAsync(path.join(__dirname, 'bin/echo-args'), ['--foo', '--foo'])
         .then((process) => {
           expect(process.args).to.deep.equal([
             '--foo', '--foo'
@@ -209,14 +188,12 @@ module.exports = function runArgTestSuite (isAsync) {
           expect(process.stderr.toString()).to.equal('');
           expect(process.stdout.toString()).to.equal(expectedOutput);
           expect(process.output.toString()).to.equal(expectedOutput);
-
-          done();
         });
     });
 
     // Ex. --foo="bar baz" "bip bop"
-    it('should run a command with key/value notation with quotes', (done) => {
-      syncAsync(path.join(__dirname, 'bin/echo-args'), ['--foo="bar baz"', '"bip bop"'])
+    it('should run a command with key/value notation with quotes', () => {
+      return syncAsync(path.join(__dirname, 'bin/echo-args'), ['--foo="bar baz"', '"bip bop"'])
         .then((process) => {
           expect(process.args).to.deep.equal([
             '--foo="bar baz"', '"bip bop"'
@@ -230,13 +207,11 @@ module.exports = function runArgTestSuite (isAsync) {
           expect(process.stderr.toString()).to.equal('');
           expect(process.stdout.toString()).to.equal(expectedOutput);
           expect(process.output.toString()).to.equal(expectedOutput);
-
-          done();
         });
     });
 
-    it('should run a command with arguments quoted as strings', (done) => {
-      syncAsync(path.join(__dirname, 'bin/echo-args'), ['"foo bar"', '"baz fiz"'])
+    it('should run a command with arguments quoted as strings', () => {
+      return syncAsync(path.join(__dirname, 'bin/echo-args'), ['"foo bar"', '"baz fiz"'])
         .then((process) => {
           expect(process.args).to.deep.equal([
             '"foo bar"', '"baz fiz"'
@@ -250,14 +225,12 @@ module.exports = function runArgTestSuite (isAsync) {
           expect(process.stderr.toString()).to.equal('');
           expect(process.stdout.toString()).to.equal(expectedOutput);
           expect(process.output.toString()).to.equal(expectedOutput);
-
-          done();
         });
 
     });
 
-    it('should run a command with with commands and args with an options object', (done) => {
-      syncAsync(path.join(__dirname, 'bin/echo-args'), ['"foo bar"', '"baz fiz"'], { cwd: undefined })
+    it('should run a command with with commands and args with an options object', () => {
+      return syncAsync(path.join(__dirname, 'bin/echo-args'), ['"foo bar"', '"baz fiz"'], { cwd: undefined })
         .then((process) => {
           expect(process.args).to.deep.equal([
             '"foo bar"', '"baz fiz"'
@@ -271,15 +244,14 @@ module.exports = function runArgTestSuite (isAsync) {
           expect(process.stderr.toString()).to.equal('');
           expect(process.stdout.toString()).to.equal(expectedOutput);
           expect(process.output.toString()).to.equal(expectedOutput);
-          done();
         });
     });
   });
 
   describe('as a single string', () => {
     // Ex. --foo --bar="baz"
-    it('should run a command with args that have a -- key and key/value notation', (done) => {
-      syncAsync(path.join(__dirname, 'bin/echo-args') + ' --foo --bar="baz"')
+    it('should run a command with args that have a -- key and key/value notation', () => {
+      return syncAsync(path.join(__dirname, 'bin/echo-args') + ' --foo --bar="baz"')
         .then((process) => {
           expect(process.args).to.deep.equal([
             '--foo', '--bar="baz"'
@@ -293,14 +265,12 @@ module.exports = function runArgTestSuite (isAsync) {
           expect(process.stderr.toString()).to.equal('');
           expect(process.stdout.toString()).to.equal(expectedOutput);
           expect(process.output.toString()).to.equal(expectedOutput);
-
-          done();
         });
     });
 
     // Ex. --foo --foo
-    it('should run a command with repeating args', (done) => {
-      syncAsync(path.join(__dirname, 'bin/echo-args') + ' --foo --foo')
+    it('should run a command with repeating args', () => {
+      return syncAsync(path.join(__dirname, 'bin/echo-args') + ' --foo --foo')
         .then((process) => {
           expect(process.args).to.deep.equal([
             '--foo', '--foo'
@@ -314,13 +284,12 @@ module.exports = function runArgTestSuite (isAsync) {
           expect(process.stderr.toString()).to.equal('');
           expect(process.stdout.toString()).to.equal(expectedOutput);
           expect(process.output.toString()).to.equal(expectedOutput);
-          done();
         });
     });
 
     // Ex. --foo="bar baz" "bip bop"
-    it('should run a command with key/value notation with quotes', (done) => {
-      syncAsync(path.join(__dirname, 'bin/echo-args') + ' --foo="bar baz" "bip bop"')
+    it('should run a command with key/value notation with quotes', () => {
+      return syncAsync(path.join(__dirname, 'bin/echo-args') + ' --foo="bar baz" "bip bop"')
         .then((process) => {
           expect(process.args).to.deep.equal([
             '--foo="bar baz"', 'bip bop'
@@ -334,13 +303,11 @@ module.exports = function runArgTestSuite (isAsync) {
           expect(process.stderr.toString()).to.equal('');
           expect(process.stdout.toString()).to.equal(expectedOutput);
           expect(process.output.toString()).to.equal(expectedOutput);
-
-          done();
         });
     });
 
-    it('should run a command with arguments quoted as strings', (done) => {
-      syncAsync(path.join(__dirname, 'bin/echo-args') + ' "foo bar" "baz fiz"')
+    it('should run a command with arguments quoted as strings', () => {
+      return syncAsync(path.join(__dirname, 'bin/echo-args') + ' "foo bar" "baz fiz"')
         .then((process) => {
           expect(process.args).to.deep.equal([
             'foo bar', 'baz fiz'
@@ -354,13 +321,11 @@ module.exports = function runArgTestSuite (isAsync) {
           expect(process.stderr.toString()).to.equal('');
           expect(process.stdout.toString()).to.equal(expectedOutput);
           expect(process.output.toString()).to.equal(expectedOutput);
-
-          done();
         });
     });
 
-    it('should run a command with with commands and args with an options object', (done) => {
-      syncAsync(path.join(__dirname, 'bin/echo-args') + ' "foo bar" "baz fiz"', { cwd: undefined })
+    it('should run a command with with commands and args with an options object', () => {
+      return syncAsync(path.join(__dirname, 'bin/echo-args') + ' "foo bar" "baz fiz"', { cwd: undefined })
         .then((process) => {
           expect(process.args).to.deep.equal([
             'foo bar', 'baz fiz'
@@ -374,63 +339,53 @@ module.exports = function runArgTestSuite (isAsync) {
           expect(process.stderr.toString()).to.equal('');
           expect(process.stdout.toString()).to.equal(expectedOutput);
           expect(process.output.toString()).to.equal(expectedOutput);
-
-          done();
         });
     });
   });
 
   describe('failure tests', () => {
-    it('should throw an error if no args are passed', (done) => {
+    it('should throw an error if no args are passed', () => {
       try {
-        syncAsync();
+        return syncAsync();
         chai.assert(false, 'no error was thrown');
-        done();
       }
       catch (error) {
         expect(error).to.be.an.instanceOf(Error);
         expect(error.message).to.equal('The command to execute is missing.');
-        done();
 
       }
     });
 
-    it('should throw an error if the command is empty', (done) => {
+    it('should throw an error if the command is empty', () => {
       try {
-        syncAsync('');
+        return syncAsync('');
         chai.assert(false, 'no error was thrown');
-        done();
       }
       catch (error) {
         expect(error).to.be.an.instanceOf(Error);
         expect(error.message).to.equal('The command to execute is missing.');
-        done();
       }
     });
 
-    it('should throw and error if the command is not a string', (done) => {
+    it('should throw and error if the command is not a string', () => {
       try {
-        syncAsync({}, 'args');
+        return syncAsync({}, 'args');
         chai.assert(false, 'no error was thrown');
-        done();
       }
       catch (error) {
         expect(error).to.be.an.instanceOf(Error);
         expect(error.message).to.equal('The command to execute should be a string, not an Object.');
-        done();
       }
     });
 
-    it('should throw an error if the command args are not strings or arrays', (done) => {
+    it('should throw an error if the command args are not strings or arrays', () => {
       try {
-        syncAsync(path.join(__dirname, 'bin/echo-args'), ['--foo', {}]);
+        return syncAsync(path.join(__dirname, 'bin/echo-args'), ['--foo', {}]);
         chai.assert(false, 'no error was thrown');
-        done();
       }
       catch (error) {
         expect(error).to.be.an.instanceOf(Error);
         expect(error.message).to.equal('The command arguments should be strings, but argument #2 is an Object.');
-        done();
       }
     });
 
