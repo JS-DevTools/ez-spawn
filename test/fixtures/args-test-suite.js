@@ -42,10 +42,10 @@ module.exports = function runArgTestSuite (isAsync) {
   });
 
   it('should run a command with spaces in the name', () => {
-    return syncAsync('"bin/spaces in name"')
+    return syncAsync(path.join(__dirname, '"bin/spaces in name"'))
       .then((process) => {
         // Make sure the process was spawned without any arguments
-        expect(process.command).to.equal('bin/spaces in name');
+        expect(process.command).to.equal(path.join(__dirname, '"bin/spaces in name"'));
         expect(process.args).to.deep.equal([]);
 
         // The output should be blank
