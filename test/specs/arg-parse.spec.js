@@ -39,10 +39,10 @@ for (let spawn of syntaxModes) {
     });
 
     it('should run a command with spaces in the name', () => {
-      return spawn('test/fixtures/"bin/spaces in name"')
+      return spawn('"test/fixtures/bin/spaces in name"')
         .then((process) => {
           // Make sure the process was spawned without any arguments
-          expect(process.command).to.equal('test/fixtures/"bin/spaces in name"');
+          expect(process.command).to.equal('test/fixtures/bin/spaces in name');
           expect(process.args).to.deep.equal([]);
 
           // The output should be blank
@@ -58,6 +58,8 @@ for (let spawn of syntaxModes) {
       it('should run a command with args that have a -- key and key/value notation', () => {
         return spawn('test/fixtures/bin/echo-args', '--foo', '--bar="baz"')
           .then((process) => {
+            // Make sure the process was spawned with the correct command and args
+            expect(process.command).to.equal('test/fixtures/bin/echo-args');
             expect(process.args).to.deep.equal([
               '--foo', '--bar="baz"'
             ]);
@@ -77,6 +79,8 @@ for (let spawn of syntaxModes) {
       it('should run a command with repeating args', () => {
         return spawn('test/fixtures/bin/echo-args', '--foo', '--foo')
           .then((process) => {
+            // Make sure the process was spawned with the correct command and args
+            expect(process.command).to.equal('test/fixtures/bin/echo-args');
             expect(process.args).to.deep.equal([
               '--foo', '--foo'
             ]);
@@ -96,6 +100,8 @@ for (let spawn of syntaxModes) {
       it('should run a command with key/value notation with quotes', () => {
         return spawn('test/fixtures/bin/echo-args', '--foo="bar baz"', 'bip bop')
           .then((process) => {
+            // Make sure the process was spawned with the correct command and args
+            expect(process.command).to.equal('test/fixtures/bin/echo-args');
             expect(process.args).to.deep.equal([
               '--foo="bar baz"', 'bip bop'
             ]);
@@ -112,8 +118,10 @@ for (let spawn of syntaxModes) {
       });
 
       it('should run a command with arguments quoted as strings', () => {
-        return spawn('test/fixtures/bin/echo-args', '"foo bar"', '"baz fiz"')
+        return spawn('test/fixtures/bin/spaces in name', '"foo bar"', '"baz fiz"')
           .then((process) => {
+            // Make sure the process was spawned with the correct command and args
+            expect(process.command).to.equal('test/fixtures/bin/spaces in name');
             expect(process.args).to.deep.equal([
               '"foo bar"', '"baz fiz"'
             ]);
@@ -132,6 +140,8 @@ for (let spawn of syntaxModes) {
       it('should run a command with with commands and args with an options object', () => {
         return spawn('test/fixtures/bin/echo-args', '"foo bar"', '"baz fiz"', { cwd: undefined })
           .then((process) => {
+            // Make sure the process was spawned with the correct command and args
+            expect(process.command).to.equal('test/fixtures/bin/echo-args');
             expect(process.args).to.deep.equal([
               '"foo bar"', '"baz fiz"'
             ]);
@@ -154,6 +164,8 @@ for (let spawn of syntaxModes) {
       it('should run a command with args that have a -- key and key/value notation', () => {
         return spawn('test/fixtures/bin/echo-args', ['--foo', '--bar="baz"'])
           .then((process) => {
+            // Make sure the process was spawned with the correct command and args
+            expect(process.command).to.equal('test/fixtures/bin/echo-args');
             expect(process.args).to.deep.equal([
               '--foo', '--bar="baz"'
             ]);
@@ -173,6 +185,8 @@ for (let spawn of syntaxModes) {
       it('should run a command with repeating args', () => {
         return spawn('test/fixtures/bin/echo-args', ['--foo', '--foo'])
           .then((process) => {
+            // Make sure the process was spawned with the correct command and args
+            expect(process.command).to.equal('test/fixtures/bin/echo-args');
             expect(process.args).to.deep.equal([
               '--foo', '--foo'
             ]);
@@ -192,6 +206,8 @@ for (let spawn of syntaxModes) {
       it('should run a command with key/value notation with quotes', () => {
         return spawn('test/fixtures/bin/echo-args', ['--foo="bar baz"', '"bip bop"'])
           .then((process) => {
+            // Make sure the process was spawned with the correct command and args
+            expect(process.command).to.equal('test/fixtures/bin/echo-args');
             expect(process.args).to.deep.equal([
               '--foo="bar baz"', '"bip bop"'
             ]);
@@ -210,6 +226,8 @@ for (let spawn of syntaxModes) {
       it('should run a command with arguments quoted as strings', () => {
         return spawn('test/fixtures/bin/echo-args', ['"foo bar"', '"baz fiz"'])
           .then((process) => {
+            // Make sure the process was spawned with the correct command and args
+            expect(process.command).to.equal('test/fixtures/bin/echo-args');
             expect(process.args).to.deep.equal([
               '"foo bar"', '"baz fiz"'
             ]);
@@ -229,6 +247,8 @@ for (let spawn of syntaxModes) {
       it('should run a command with with commands and args with an options object', () => {
         return spawn('test/fixtures/bin/echo-args', ['"foo bar"', '"baz fiz"'], { cwd: undefined })
           .then((process) => {
+            // Make sure the process was spawned with the correct command and args
+            expect(process.command).to.equal('test/fixtures/bin/echo-args');
             expect(process.args).to.deep.equal([
               '"foo bar"', '"baz fiz"'
             ]);
@@ -250,6 +270,8 @@ for (let spawn of syntaxModes) {
       it('should run a command with args that have a -- key and key/value notation', () => {
         return spawn('test/fixtures/bin/echo-args --foo --bar="baz"')
           .then((process) => {
+            // Make sure the process was spawned with the correct command and args
+            expect(process.command).to.equal('test/fixtures/bin/echo-args');
             expect(process.args).to.deep.equal([
               '--foo', '--bar="baz"'
             ]);
@@ -269,6 +291,8 @@ for (let spawn of syntaxModes) {
       it('should run a command with repeating args', () => {
         return spawn('test/fixtures/bin/echo-args --foo --foo')
           .then((process) => {
+            // Make sure the process was spawned with the correct command and args
+            expect(process.command).to.equal('test/fixtures/bin/echo-args');
             expect(process.args).to.deep.equal([
               '--foo', '--foo'
             ]);
@@ -288,6 +312,8 @@ for (let spawn of syntaxModes) {
       it('should run a command with key/value notation with quotes', () => {
         return spawn('test/fixtures/bin/echo-args --foo="bar baz" "bip bop"')
           .then((process) => {
+            // Make sure the process was spawned with the correct command and args
+            expect(process.command).to.equal('test/fixtures/bin/echo-args');
             expect(process.args).to.deep.equal([
               '--foo="bar baz"', 'bip bop'
             ]);
@@ -306,6 +332,8 @@ for (let spawn of syntaxModes) {
       it('should run a command with arguments quoted as strings', () => {
         return spawn('test/fixtures/bin/echo-args "foo bar" "baz fiz"')
           .then((process) => {
+            // Make sure the process was spawned with the correct command and args
+            expect(process.command).to.equal('test/fixtures/bin/echo-args');
             expect(process.args).to.deep.equal([
               'foo bar', 'baz fiz'
             ]);
@@ -324,6 +352,8 @@ for (let spawn of syntaxModes) {
       it('should run a command with with commands and args with an options object', () => {
         return spawn('test/fixtures/bin/echo-args "foo bar" "baz fiz"', { cwd: undefined })
           .then((process) => {
+            // Make sure the process was spawned with the correct command and args
+            expect(process.command).to.equal('test/fixtures/bin/echo-args');
             expect(process.args).to.deep.equal([
               'foo bar', 'baz fiz'
             ]);
