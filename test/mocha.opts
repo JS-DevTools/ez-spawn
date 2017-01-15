@@ -1,4 +1,5 @@
 --bail
+--async-only
 --retries 2
 test/fixtures/*.js
 test/specs/*.js
