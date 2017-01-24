@@ -35,7 +35,7 @@ for (let spawn of syntaxModes) {
           });
       });
 
-      it('should return an exit code > 128', () =>{
+      it('should return an exit code > 128', () => {
         return spawn('test/fixtures/bin/exit-code 129')
           .then((process) => {
             // Make sure the process was spawned without any arguments

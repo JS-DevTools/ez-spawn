@@ -9,17 +9,49 @@
 
 const fs = require('fs');
 
-let file = process.argv[2];
+let stdOutFiles = [];
+let stdErrFiles = [];
 
-if (!file) {
+let errorFlag = false;
+let filesNotFound = false;
+
+for (let i = 2; i < process.argv.length; i++) {
+  if (process.argv[i] === '--error') {
+    errorFlag = true;
+  }
+  else {
+    if (errorFlag) {
+      stdErrFiles.push(process.argv[i]);
+    }
+    else {
+      stdOutFiles.push(process.argv[i]);
+    }
+  }
+}
+
+if (stdOutFiles.length === 0 && stdErrFiles.length === 0) {
   console.error('No file name was specified');
   process.exit(1);
 }
 
-if (!fs.existsSync(file)) {
-  console.error(`Unable to find file: ${file}`);
-  process.exit(2);
+for (let stdOutFile of stdOutFiles) {
+  if (!fs.existsSync(stdOutFile)) {
+    console.error(`Unable to find file: ${stdOutFile}`);
+    filesNotFound = true;
+  }
+  let data = fs.readFileSync(stdOutFile);
+  process.stdout.write(data);
 }
 
-let data = fs.readFileSync(file);
-process.stdout.write(data);
+for (let stdErrFile of stdErrFiles) {
+  if (!fs.existsSync(stdErrFile)) {
+    console.error(`Unable to find file: ${stdErrFile}`);
+    filesNotFound = true;
+  }
+  let data = fs.readFileSync(stdErrFile);
+  process.stderr.write(data);
+}
+
+if (filesNotFound) {
+  process.exit(2);
+}
