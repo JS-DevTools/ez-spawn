@@ -287,6 +287,26 @@ for (let spawn of syntaxModes) {
           });
       });
 
+      it('should run a command with multiple args without quotes in strings', () => {
+        return spawn('test/fixtures/bin/echo-args arg1 arg2')
+          .then((process) => {
+            // Make sure the process was spawned with the correct command and args
+            expect(process.command).to.equal('test/fixtures/bin/echo-args');
+            expect(process.args).to.deep.equal([
+              'arg1', 'arg2'
+            ]);
+
+            // The output should contain each argument on its own line
+            let expectedOutput =
+              'Argument #1: arg1\n' +
+              'Argument #2: arg2\n';
+
+            expect(process.stderr.toString()).to.equal('');
+            expect(process.stdout.toString()).to.equal(expectedOutput);
+            expect(process.output.toString()).to.equal(expectedOutput);
+          });
+      });
+
       // Ex. --foo --foo
       it('should run a command with repeating args', () => {
         return spawn('test/fixtures/bin/echo-args --foo --foo')
