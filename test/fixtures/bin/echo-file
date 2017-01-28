@@ -8,50 +8,25 @@
 'use strict';
 
 const fs = require('fs');
-
-let stdOutFiles = [];
-let stdErrFiles = [];
-
 let errorFlag = false;
-let filesNotFound = false;
 
 for (let i = 2; i < process.argv.length; i++) {
-  if (process.argv[i] === '--error') {
+  let filePath = process.argv[i];
+
+  if (filePath === '--stderr') {
     errorFlag = true;
   }
+  else if (filePath === '--stdout') {
+    errorFlag = false;
+  }
   else {
+    let data = fs.readFileSync(filePath);
+
     if (errorFlag) {
-      stdErrFiles.push(process.argv[i]);
+      process.stderr.write(data);
     }
     else {
-      stdOutFiles.push(process.argv[i]);
+      process.stdout.write(data);
     }
   }
-}
-
-if (stdOutFiles.length === 0 && stdErrFiles.length === 0) {
-  console.error('No file name was specified');
-  process.exit(1);
-}
-
-for (let stdOutFile of stdOutFiles) {
-  if (!fs.existsSync(stdOutFile)) {
-    console.error(`Unable to find file: ${stdOutFile}`);
-    filesNotFound = true;
-  }
-  let data = fs.readFileSync(stdOutFile);
-  process.stdout.write(data);
-}
-
-for (let stdErrFile of stdErrFiles) {
-  if (!fs.existsSync(stdErrFile)) {
-    console.error(`Unable to find file: ${stdErrFile}`);
-    filesNotFound = true;
-  }
-  let data = fs.readFileSync(stdErrFile);
-  process.stderr.write(data);
-}
-
-if (filesNotFound) {
-  process.exit(2);
 }
