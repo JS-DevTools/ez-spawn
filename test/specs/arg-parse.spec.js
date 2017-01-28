@@ -22,7 +22,6 @@ for (let spawn of syntaxModes) {
           // The output should be blank
           expect(process.stdout.toString()).to.equal('');
           expect(process.stderr.toString()).to.equal('');
-          expect(process.output.toString()).to.equal('');
         });
     });
 
@@ -34,7 +33,6 @@ for (let spawn of syntaxModes) {
           // The output should be blank
           expect(process.stdout.toString()).to.equal('');
           expect(process.stderr.toString()).to.equal('');
-          expect(process.output.toString()).to.equal('');
         });
     });
 
@@ -48,7 +46,6 @@ for (let spawn of syntaxModes) {
           // The output should be blank
           expect(process.stdout.toString()).to.equal('');
           expect(process.stderr.toString()).to.equal('');
-          expect(process.output.toString()).to.equal('');
         });
     });
 
@@ -71,7 +68,6 @@ for (let spawn of syntaxModes) {
 
             expect(process.stderr.toString()).to.equal('');
             expect(process.stdout.toString()).to.equal(expectedOutput);
-            expect(process.output.toString()).to.equal(expectedOutput);
           });
       });
 
@@ -92,7 +88,6 @@ for (let spawn of syntaxModes) {
 
             expect(process.stderr.toString()).to.equal('');
             expect(process.stdout.toString()).to.equal(expectedOutput);
-            expect(process.output.toString()).to.equal(expectedOutput);
           });
       });
 
@@ -113,7 +108,6 @@ for (let spawn of syntaxModes) {
 
             expect(process.stderr.toString()).to.equal('');
             expect(process.stdout.toString()).to.equal(expectedOutput);
-            expect(process.output.toString()).to.equal(expectedOutput);
           });
       });
 
@@ -133,7 +127,6 @@ for (let spawn of syntaxModes) {
 
             expect(process.stderr.toString()).to.equal('');
             expect(process.stdout.toString()).to.equal(expectedOutput);
-            expect(process.output.toString()).to.equal(expectedOutput);
           });
       });
 
@@ -153,7 +146,6 @@ for (let spawn of syntaxModes) {
 
             expect(process.stderr.toString()).to.equal('');
             expect(process.stdout.toString()).to.equal(expectedOutput);
-            expect(process.output.toString()).to.equal(expectedOutput);
           });
 
       });
@@ -177,7 +169,6 @@ for (let spawn of syntaxModes) {
 
             expect(process.stderr.toString()).to.equal('');
             expect(process.stdout.toString()).to.equal(expectedOutput);
-            expect(process.output.toString()).to.equal(expectedOutput);
           });
       });
 
@@ -198,7 +189,6 @@ for (let spawn of syntaxModes) {
 
             expect(process.stderr.toString()).to.equal('');
             expect(process.stdout.toString()).to.equal(expectedOutput);
-            expect(process.output.toString()).to.equal(expectedOutput);
           });
       });
 
@@ -219,7 +209,6 @@ for (let spawn of syntaxModes) {
 
             expect(process.stderr.toString()).to.equal('');
             expect(process.stdout.toString()).to.equal(expectedOutput);
-            expect(process.output.toString()).to.equal(expectedOutput);
           });
       });
 
@@ -239,7 +228,6 @@ for (let spawn of syntaxModes) {
 
             expect(process.stderr.toString()).to.equal('');
             expect(process.stdout.toString()).to.equal(expectedOutput);
-            expect(process.output.toString()).to.equal(expectedOutput);
           });
 
       });
@@ -260,7 +248,6 @@ for (let spawn of syntaxModes) {
 
             expect(process.stderr.toString()).to.equal('');
             expect(process.stdout.toString()).to.equal(expectedOutput);
-            expect(process.output.toString()).to.equal(expectedOutput);
           });
       });
     });
@@ -283,7 +270,6 @@ for (let spawn of syntaxModes) {
 
             expect(process.stderr.toString()).to.equal('');
             expect(process.stdout.toString()).to.equal(expectedOutput);
-            expect(process.output.toString()).to.equal(expectedOutput);
           });
       });
 
@@ -303,7 +289,6 @@ for (let spawn of syntaxModes) {
 
             expect(process.stderr.toString()).to.equal('');
             expect(process.stdout.toString()).to.equal(expectedOutput);
-            expect(process.output.toString()).to.equal(expectedOutput);
           });
       });
 
@@ -324,7 +309,6 @@ for (let spawn of syntaxModes) {
 
             expect(process.stderr.toString()).to.equal('');
             expect(process.stdout.toString()).to.equal(expectedOutput);
-            expect(process.output.toString()).to.equal(expectedOutput);
           });
       });
 
@@ -345,7 +329,6 @@ for (let spawn of syntaxModes) {
 
             expect(process.stderr.toString()).to.equal('');
             expect(process.stdout.toString()).to.equal(expectedOutput);
-            expect(process.output.toString()).to.equal(expectedOutput);
           });
       });
 
@@ -365,7 +348,6 @@ for (let spawn of syntaxModes) {
 
             expect(process.stderr.toString()).to.equal('');
             expect(process.stdout.toString()).to.equal(expectedOutput);
-            expect(process.output.toString()).to.equal(expectedOutput);
           });
       });
 
@@ -385,7 +367,6 @@ for (let spawn of syntaxModes) {
 
             expect(process.stderr.toString()).to.equal('');
             expect(process.stdout.toString()).to.equal(expectedOutput);
-            expect(process.output.toString()).to.equal(expectedOutput);
           });
       });
     });
