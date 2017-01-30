@@ -12,6 +12,10 @@ const files = {
     path: 'test/fixtures/files/small-text-file.txt',
     contents: fs.readFileSync('test/fixtures/files/small-text-file.txt'),
   },
+  largeTextFile: {
+    path: 'test/fixtures/files/large-text-file.txt',
+    contents: fs.readFileSync('test/fixtures/files/large-text-file.txt'),
+  },
   imageFile: {
     path: 'test/fixtures/files/image-file.jpg',
     contents: fs.readFileSync('test/fixtures/files/image-file.jpg'),
@@ -29,11 +33,11 @@ for (let spawn of syntaxModes) {
           expect(Buffer.isBuffer(process.stdout)).to.equal(true);
           expect(Buffer.isBuffer(process.stderr)).to.equal(true);
 
-          // stderr should be empty
-          expect(process.stderr).to.have.lengthOf(0);
-
           // stdout should match the file
           expect(process.stdout).to.deep.equal(files.smallTextFile.contents);
+
+          // stderr should be empty
+          expect(process.stderr).to.have.lengthOf(0);
 
           // Output should match stdout and stderr
           expect(process.output).to.have.lengthOf(3);
@@ -50,11 +54,11 @@ for (let spawn of syntaxModes) {
           expect(Buffer.isBuffer(process.stdout)).to.equal(true);
           expect(Buffer.isBuffer(process.stderr)).to.equal(true);
 
-          // stderr should be empty
-          expect(process.stderr).to.have.lengthOf(0);
-
           // stdout should match the file
           expect(process.stdout).to.deep.equal(files.imageFile.contents);
+
+          // stderr should be empty
+          expect(process.stderr).to.have.lengthOf(0);
 
           // Output should match stdout and stderr
           expect(process.output).to.have.lengthOf(3);
@@ -71,11 +75,11 @@ for (let spawn of syntaxModes) {
           expect(process.stdout).to.be.a('string');
           expect(process.stderr).to.be.a('string');
 
-          // stderr should be empty
-          expect(process.stderr).to.have.lengthOf(0);
-
           // stdout should match the file
           expect(process.stdout).to.deep.equal(files.smallTextFile.contents.toString());
+
+          // stderr should be empty
+          expect(process.stderr).to.have.lengthOf(0);
 
           // Output should match stdout and stderr
           expect(process.output).to.have.lengthOf(3);
@@ -85,108 +89,257 @@ for (let spawn of syntaxModes) {
         });
     });
 
-    // for (let callComb of callCombinations) {
-    //   describe(`on ${callComb.name}`, () => {
+    it('should return a stderror output as a Buffer', () => {
+      return spawn(`${echoFileBin} --stderr ${files.smallTextFile.path}`)
+        .then((process) => {
+          // By default, stdout and stderr should be buffers
+          expect(Buffer.isBuffer(process.stdout)).to.equal(true);
+          expect(Buffer.isBuffer(process.stderr)).to.equal(true);
 
-    //     describe('when the process emits data on stdout', () => {
-    //       it('should add buffer data to the stdout property', () => {
-    //         return spawn(`${callComb.commandCall} ${callComb.commandArgs}`)
-    //           .then((process) => {
-    //             expect(Buffer.isBuffer(process.stdout)).to.equal(true);
-    //             expect(process.stdout.toString()).to.equal(callComb.expectedOutput);
-    //           });
-    //       });
+          // stdout should be empty
+          expect(process.stdout).to.have.lengthOf(0);
 
-    //       it('should add string data to the stdout property', () => {
-    //         return spawn(`${callComb.commandCall} ${callComb.commandArgs}`, { encoding: 'utf8' })
-    //           .then((process) => {
-    //             expect(Buffer.isBuffer(process.stdout)).to.equal(false);
-    //             expect(process.stdout).to.equal(callComb.expectedOutput);
-    //           });
-    //       });
+          // stderr should match the file
+          expect(process.stderr).to.deep.equal(files.smallTextFile.contents);
 
-    //       it('should add string data to the output property', () => {
-    //         return spawn(`${callComb.commandCall} ${callComb.commandArgs}`, { encoding: 'utf8' })
-    //           .then((process) => {
-    //             expect(Buffer.isBuffer(process.output)).to.equal(false);
-    //             expect(process.output).to.equal(callComb.expectedOutput);
-    //           });
-    //       });
+          // Output should match stdout and stderr
+          expect(process.output).to.have.lengthOf(3);
+          expect(process.output[0]).to.be.null;
+          expect(process.output[1]).to.equal(process.stdout);
+          expect(process.output[2]).to.equal(process.stderr);
+        });
+    });
 
-    //       it('should add buffer data to the output property', () => {
-    //         return spawn(`${callComb.commandCall} ${callComb.commandArgs}`)
-    //           .then((process) => {
-    //             expect(Buffer.isBuffer(process.stdout)).to.equal(true);
-    //             expect(process.output.toString()).to.equal(callComb.expectedOutput);
-    //           });
-    //       });
-    //     });
+    it('should return a stderror output as a string', () => {
+      return spawn(`${echoFileBin} --stderr ${files.smallTextFile.path}`, { encoding: 'utf8' })
+        .then((process) => {
+          // By default, stdout and stderr should be strings
+          expect(process.stdout).to.be.a('string');
+          expect(process.stderr).to.be.a('string');
 
-    //     describe('when the process emits data on stderr', () => {
-    //       it('should add string data to the stderr property', () => {
-    //         return spawn(`${callComb.commandCall} --error ${callComb.commandArgs}`, { encoding: 'utf8' })
-    //           .then((process) => {
-    //             expect(Buffer.isBuffer(process.stderr)).to.equal(false);
-    //             expect(process.stderr).to.equal(callComb.expectedOutput);
-    //           });
-    //       });
+          // stdout should be empty
+          expect(process.stdout).to.have.lengthOf(0);
 
-    //       it('should add buffer data to the stderr property', () => {
-    //         return spawn(`${callComb.commandCall} --error ${callComb.commandArgs}`)
-    //           .then((process) => {
-    //             expect(Buffer.isBuffer(process.stderr)).to.equal(true);
-    //             expect(process.stderr.toString()).to.equal(callComb.expectedOutput);
-    //           });
-    //       });
+          // stderr should match the file
+          expect(process.stderr).to.deep.equal(files.smallTextFile.contents.toString());
 
-    //       it('should add string data to the output property', () => {
-    //         return spawn(`${callComb.commandCall} --error ${callComb.commandArgs}`, { encoding: 'utf8' })
-    //           .then((process) => {
-    //             expect(Buffer.isBuffer(process.output)).to.equal(false);
-    //             expect(process.output).to.equal(callComb.expectedOutput);
-    //           });
-    //       });
+          // Output should match stdout and stderr
+          expect(process.output).to.have.lengthOf(3);
+          expect(process.output[0]).to.be.null;
+          expect(process.output[1]).to.equal(process.stdout);
+          expect(process.output[2]).to.equal(process.stderr);
+        });
+    });
 
-    //       it('should add buffer data to the output property', () => {
-    //         return spawn(`${callComb.commandCall} --error ${callComb.commandArgs}`)
-    //           .then((process) => {
-    //             expect(Buffer.isBuffer(process.output)).to.equal(true);
-    //             expect(process.output.toString()).to.equal(callComb.expectedOutput);
-    //           });
-    //       });
-    //     });
+    it('should return output and stderr as a Buffer', () => {
+      return spawn(`${echoFileBin} --stdout ${files.smallTextFile.path} --stderr ${files.smallTextFile.path}`)
+        .then((process) => {
+          // By default, stdout and stderr should be buffers
+          expect(Buffer.isBuffer(process.stdout)).to.equal(true);
+          expect(Buffer.isBuffer(process.stderr)).to.equal(true);
 
-    //     describe('when a process emits data on both stdout and stderr', () => {
+          // stdout should match the file
+          expect(process.stdout).to.deep.equal(files.smallTextFile.contents);
 
-    //       it('should concatenate both string stdout and stderr data to the output property', () => {
-    //         return spawn(`${callComb.commandCall} ${callComb.commandArgs} --error ${callComb.commandArgs}`, { encoding: 'utf8' })
-    //           .then((process) => {
-    //             expect(Buffer.isBuffer(process.stdout)).to.equal(false);
-    //             expect(Buffer.isBuffer(process.stderr)).to.equal(false);
-    //             expect(Buffer.isBuffer(process.output)).to.equal(false);
+          // stderr should match the file
+          expect(process.stderr).to.deep.equal(files.smallTextFile.contents);
 
-    //             expect(process.stdout).to.equal(callComb.expectedOutput);
-    //             expect(process.stderr).to.equal(callComb.expectedOutput);
-    //             expect(process.output.length).to.equal(callComb.expectedOutput.length * 2);
-    //           });
-    //       });
+          // Output should match stdout and stderr
+          expect(process.output).to.have.lengthOf(3);
+          expect(process.output[0]).to.be.null;
+          expect(process.output[1]).to.equal(process.stdout);
+          expect(process.output[2]).to.equal(process.stderr);
+        });
+    });
 
-    //       it('should concatenate both Buffer stdout and stderr data to the output property', () => {
-    //         return spawn(`${callComb.commandCall} ${callComb.commandArgs} --error ${callComb.commandArgs}`)
-    //           .then((process) => {
-    //             expect(Buffer.isBuffer(process.stdout)).to.equal(true);
-    //             expect(Buffer.isBuffer(process.stderr)).to.equal(true);
-    //             expect(Buffer.isBuffer(process.output)).to.equal(true);
+    it('should return output and stderr as a string', () => {
+      return spawn(`${echoFileBin} --stdout ${files.smallTextFile.path} --stderr ${files.smallTextFile.path}`, { encoding: 'utf8' })
+        .then((process) => {
+          // By default, stdout and stderr should be strings
+          expect(process.stdout).to.be.a('string');
+          expect(process.stderr).to.be.a('string');
 
-    //             expect(process.stdout.toString()).to.equal(callComb.expectedOutput);
-    //             expect(process.stderr.toString()).to.equal(callComb.expectedOutput);
-    //             expect(process.output.length).to.equal(callComb.expectedOutput.length * 2);
-    //           });
-    //       });
+          // stdout should match the file
+          expect(process.stdout).to.deep.equal(files.smallTextFile.contents.toString());
 
-    //     });
-    //   });
-    // }
+          // stderr should match the file
+          expect(process.stderr).to.deep.equal(files.smallTextFile.contents.toString());
 
+          // Output should match stdout and stderr
+          expect(process.output).to.have.lengthOf(3);
+          expect(process.output[0]).to.be.null;
+          expect(process.output[1]).to.equal(process.stdout);
+          expect(process.output[2]).to.equal(process.stderr);
+        });
+    });
+
+    it('should return binary and stderr output as a Buffer', () => {
+      return spawn(`${echoFileBin} --stdout ${files.imageFile.path} --stderr ${files.smallTextFile.path}`)
+        .then((process) => {
+          // By default, stdout and stderr should be buffers
+          expect(Buffer.isBuffer(process.stdout)).to.equal(true);
+          expect(Buffer.isBuffer(process.stderr)).to.equal(true);
+
+          // stdout should match the file
+          expect(process.stdout).to.deep.equal(files.imageFile.contents);
+
+          // stderr should match the file
+          expect(process.stderr).to.deep.equal(files.smallTextFile.contents);
+
+          // Output should match stdout and stderr
+          expect(process.output).to.have.lengthOf(3);
+          expect(process.output[0]).to.be.null;
+          expect(process.output[1]).to.equal(process.stdout);
+          expect(process.output[2]).to.equal(process.stderr);
+        });
+    });
+
+    it('should return binary and stderr output as a string', () => {
+      return spawn(`${echoFileBin} --stdout ${files.imageFile.path} --stderr ${files.smallTextFile.path}`, { encoding: 'utf8' })
+        .then((process) => {
+          // By default, stdout and stderr should be strings
+          expect(process.stdout).to.be.a('string');
+          expect(process.stderr).to.be.a('string');
+
+          // stdout should match the file
+          expect(process.stdout).to.deep.equal(files.imageFile.contents.toString());
+
+          // stderr should match the file
+          expect(process.stderr).to.deep.equal(files.smallTextFile.contents.toString());
+
+          // Output should match stdout and stderr
+          expect(process.output).to.have.lengthOf(3);
+          expect(process.output[0]).to.be.null;
+          expect(process.output[1]).to.equal(process.stdout);
+          expect(process.output[2]).to.equal(process.stderr);
+        });
+    });
+
+    it('should return binary and text output as a Buffer', () => {
+      return spawn(`${echoFileBin} --stdout ${files.imageFile.path} ${files.smallTextFile.path}`)
+        .then((process) => {
+          // By default, stdout and stderr should be buffers
+          expect(Buffer.isBuffer(process.stdout)).to.equal(true);
+          expect(Buffer.isBuffer(process.stderr)).to.equal(true);
+
+          // stdout should match the file
+          expect(process.stdout).to.deep.equal(Buffer.concat([files.imageFile.contents, files.smallTextFile.contents]));
+
+          // stderr be empty
+          expect(process.stderr).to.have.lengthOf(0);
+
+          // Output should match stdout and stderr
+          expect(process.output).to.have.lengthOf(3);
+          expect(process.output[0]).to.be.null;
+          expect(process.output[1]).to.equal(process.stdout);
+          expect(process.output[2]).to.equal(process.stderr);
+        });
+    });
+
+    it('should return binary and text output as a string', () => {
+      return spawn(`${echoFileBin} --stdout ${files.imageFile.path} ${files.smallTextFile.path}`, { encoding: 'utf8' })
+        .then((process) => {
+          // By default, stdout and stderr should be strings
+          expect(process.stdout).to.be.a('string');
+          expect(process.stderr).to.be.a('string');
+
+          // stdout should match the file
+          expect(process.stdout.toString()).to.deep.equal(Buffer.concat([files.imageFile.contents, files.smallTextFile.contents]).toString());
+
+          // stderr be empty
+          expect(process.stderr).to.have.lengthOf(0);
+
+          // Output should match stdout and stderr
+          expect(process.output).to.have.lengthOf(3);
+          expect(process.output[0]).to.be.null;
+          expect(process.output[1]).to.equal(process.stdout);
+          expect(process.output[2]).to.equal(process.stderr);
+        });
+    });
+
+
+    it('should return binary and text output, as well as multiple stderr output to a Buffer', () => {
+      return spawn(`${echoFileBin} --stdout ${files.imageFile.path} ${files.largeTextFile.path} --stderr ${files.largeTextFile.path} ${files.smallTextFile.path}`)
+        .then((process) => {
+          // By default, stdout and stderr should be buffers
+          expect(Buffer.isBuffer(process.stdout)).to.equal(true);
+          expect(Buffer.isBuffer(process.stderr)).to.equal(true);
+
+          // stdout should match the files
+          expect(process.stdout).to.deep.equal(Buffer.concat([files.imageFile.contents, files.largeTextFile.contents]));
+
+          // stderr to match the files
+          expect(process.stderr).to.deep.equal(Buffer.concat([files.largeTextFile.contents, files.smallTextFile.contents]));
+
+          // Output should match stdout and stderr
+          expect(process.output).to.have.lengthOf(3);
+          expect(process.output[0]).to.be.null;
+          expect(process.output[1]).to.equal(process.stdout);
+          expect(process.output[2]).to.equal(process.stderr);
+        });
+    });
+
+    it('should return binary and text output, as well as multiple stderr output to a string', () => {
+      return spawn(`${echoFileBin} --stdout ${files.imageFile.path} ${files.smallTextFile.path} --stderr ${files.largeTextFile.path} ${files.smallTextFile.path}`, { encoding: 'utf8' })
+        .then((process) => {
+          // By default, stdout and stderr should be strings
+          expect(process.stdout).to.be.a('string');
+          expect(process.stderr).to.be.a('string');
+
+          // stdout should match the file
+          expect(process.stdout.toString()).to.deep.equal(Buffer.concat([files.imageFile.contents, files.smallTextFile.contents]).toString());
+
+          // stderr to match the files
+          expect(process.stderr.toString()).to.deep.equal(Buffer.concat([files.largeTextFile.contents, files.smallTextFile.contents]).toString());
+
+          // Output should match stdout and stderr
+          expect(process.output).to.have.lengthOf(3);
+          expect(process.output[0]).to.be.null;
+          expect(process.output[1]).to.equal(process.stdout);
+          expect(process.output[2]).to.equal(process.stderr);
+        });
+    });
+
+    it('should return binary and large/small text output, as well as multiple stderr output to a Buffer', () => {
+      return spawn(`${echoFileBin} --stdout ${files.imageFile.path} ${files.largeTextFile.path} ${files.smallTextFile.path} --stderr ${files.largeTextFile.path} ${files.smallTextFile.path} ${files.largeTextFile.path}`)
+        .then((process) => {
+          // By default, stdout and stderr should be Buffers
+          expect(Buffer.isBuffer(process.stdout)).to.equal(true);
+          expect(Buffer.isBuffer(process.stderr)).to.equal(true);
+
+          // stdout should match the file
+          expect(process.stdout).to.deep.equal(Buffer.concat([files.imageFile.contents, files.largeTextFile.contents, files.smallTextFile.contents]));
+
+          // stderr to match the files
+          expect(process.stderr).to.deep.equal(Buffer.concat([files.largeTextFile.contents, files.smallTextFile.contents, files.largeTextFile.contents]));
+
+          // Output should match stdout and stderr
+          expect(process.output).to.have.lengthOf(3);
+          expect(process.output[0]).to.be.null;
+          expect(process.output[1]).to.equal(process.stdout);
+          expect(process.output[2]).to.equal(process.stderr);
+        });
+    });
+
+    it('should return binary and large/small text output, as well as multiple stderr output to a string', () => {
+      return spawn(`${echoFileBin} --stdout ${files.imageFile.path} ${files.largeTextFile.path} ${files.smallTextFile.path} --stderr ${files.largeTextFile.path} ${files.smallTextFile.path} ${files.largeTextFile.path}`, { encoding: 'utf8' })
+        .then((process) => {
+          // By default, stdout and stderr should be strings
+          expect(process.stdout).to.be.a('string');
+          expect(process.stderr).to.be.a('string');
+
+         // stdout should match the file
+          expect(process.stdout.toString()).to.deep.equal(Buffer.concat([files.imageFile.contents, files.largeTextFile.contents, files.smallTextFile.contents]).toString());
+
+          // stderr to match the files
+          expect(process.stderr.toString()).to.deep.equal(Buffer.concat([files.largeTextFile.contents, files.smallTextFile.contents, files.largeTextFile.contents]).toString());
+
+          // Output should match stdout and stderr
+          expect(process.output).to.have.lengthOf(3);
+          expect(process.output[0]).to.be.null;
+          expect(process.output[1]).to.equal(process.stdout);
+          expect(process.output[2]).to.equal(process.stderr);
+        });
+    });
   });
 }
