@@ -17,21 +17,27 @@ Simple, consistent sync/async process spawning
 
 Features
 --------------------------
-* Normalizes the [spawn](https://nodejs.org/api/child_process.html#child_process_child_process_spawn_command_args_options) and [spawnSync](https://nodejs.org/api/child_process.html#child_process_child_process_spawnsync_command_args_options) calls through the `async` and `sync` functions that ez-spawn provides. Both return the same process object no matter how it is called.
+* Normalizes the results of [spawn](https://nodejs.org/api/child_process.html#child_process_child_process_spawn_command_args_options) and [spawnSync](https://nodejs.org/api/child_process.html#child_process_child_process_spawnsync_command_args_options) calls through the `async` and `sync` functions that ez-spawn provides.
+* Normalizes the arguments passed into the `spawn` and `spawnSync`
+* Both return the same process object no matter how it is called.
 
-* Tested on Mac, Linux, and Windows as well as Node v4-7 
+* Tested on Mac, Linux, and Windows as well as Node v4-7
+
 
 
 Example
 --------------------------
 
 ```javascript
+let sync = require('ez-spawn').sync;
+let async = require('ez-spawn').async;
+
 // Make a synchronous call
 let process = sync('ls', '-al');
 
 //Make an asynchronous call that accepts a callback
 async('ls', '-a' '-l', (process) => {
-  console.log(process.status); 
+  console.log(process.status);
   //Etc...
 });
 
@@ -66,34 +72,34 @@ let sync = require("ez-spawn").sync;
 
 API
 --------------------------
-### `sync(command, [arguments], [options])`  
-Synchronously spawns a process and returns a `Process` object  
+### `sync(command, [arguments], [options])`
+Synchronously spawns a process and returns a `Process` object
 
-* `command` - The command string to be executed.  
-* `arguments` - _(optional)_ An array or a series of individual string parameters that are the arguments to be associated with the `command` parameter.    
-* `options` - _(optional)_ The [spawnSync](https://nodejs.org/api/child_process.html#child_process_child_process_spawnsync_command_args_options) options object.  
+* `command` - The command string to be executed.
+* `arguments` - _(optional)_ An array or a series of individual string parameters that are the arguments to be associated with the `command` parameter.
+* `options` - _(optional)_ The [spawnSync](https://nodejs.org/api/child_process.html#child_process_child_process_spawnsync_command_args_options) options object.
 
-### `async(command, [arguments], [options], callback?)` 
-Asynchronously spawns a process and returns a promise or a callback if specified that contains a `Process` object.  
-  
-* `command` - The command string to be executed.   
-* `arguments` - _(optional)_ An array or a series of individual string parameters that are the arguments to be associated with the `command` parameter.    
-* `options` - _(optional)_ The [spawnSync](https://nodejs.org/api/child_process.html#child_process_child_process_spawnsync_command_args_options) options object.  
-* `callback` - _(optional)_ If a callback is not specified then spawned process results are returned as a [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)  
+### `async(command, [arguments], [options], callback?)`
+Asynchronously spawns a process and returns a promise or a callback if specified that contains a `Process` object.
 
-### `Process`  
-Both async and sync both return a `Process` object that contains the following properties. It mirrors the object returned by [spawnSync](https://nodejs.org/api/child_process.html#child_process_child_process_spawnsync_command_args_options).  
+* `command` - The command string to be executed.
+* `arguments` - _(optional)_ An array or a series of individual string parameters that are the arguments to be associated with the `command` parameter.
+* `options` - _(optional)_ The [spawnSync](https://nodejs.org/api/child_process.html#child_process_child_process_spawnsync_command_args_options) options object.
+* `callback` - _(optional)_ If a callback is not specified then spawned process results are returned as a [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)
 
-* `command` - The command that was used to spawn the process.  
-* `args` - The command-line arguments that were passed to the process.  
-* `pid` - The numeric process ID assigned by the operating system.  
-* `stdout` - The process's standard output.  
-* `stderr` - The process's error output.  
-* `output` - All program output [stdin, stdout, stderr].  
-* `exitCode` - The process's exit code.  
-* `signal` - The signal used to kill the process, if applicable.  
-* `error` - The error that occurred while spawning or killing the process, if any.  
-* `toString()` - Returns the full command and arguments used to spawn the process.  
+### `Process`
+Both async and sync both return a `Process` object that contains the following properties. It mirrors the object returned by [spawnSync](https://nodejs.org/api/child_process.html#child_process_child_process_spawnsync_command_args_options).
+
+* `command` - The command that was used to spawn the process.
+* `args` - The command-line arguments that were passed to the process.
+* `pid` - The numeric process ID assigned by the operating system.
+* `stdout` - The process's standard output.
+* `stderr` - The process's error output.
+* `output` - All program output [stdin, stdout, stderr].
+* `exitCode` - The process's exit code.
+* `signal` - The signal used to kill the process, if applicable.
+* `error` - The error that occurred while spawning or killing the process, if any.
+* `toString()` - Returns the full command and arguments used to spawn the process.
 
 
 
