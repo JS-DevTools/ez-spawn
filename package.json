@@ -37,11 +37,11 @@
     "release": "npm run upgrade && npm test && npm run bump && npm publish"
   },
   "devDependencies": {
-    "chai": "^3.5.0",
+    "chai": "^4.0.1",
     "codacy-coverage": "^2.0.1",
     "coveralls": "^2.11.14",
     "eslint": "^3.15.0",
-    "eslint-config-modular": "^2.0.1",
+    "eslint-config-modular": "^4.0.0",
     "istanbul": "^0.4.5",
     "mocha": "^3.1.2",
     "npm-check": "^5.4.0",
