@@ -29,7 +29,7 @@
     "lib"
   ],
   "scripts": {
-    "lint": "eslint lib test --fix",
+    "lint": "eslint lib test",
     "test": "mocha && npm run lint",
     "cover": "istanbul cover _mocha",
     "upgrade": "npm-check -u",
