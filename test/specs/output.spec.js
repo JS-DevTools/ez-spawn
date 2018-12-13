@@ -1,24 +1,24 @@
-'use strict';
+"use strict";
 
-const chai = require('chai');
+const chai = require("chai");
 const expect = chai.expect;
-const syntaxModes = require('../fixtures/syntax-modes');
-const fs = require('fs');
+const syntaxModes = require("../fixtures/syntax-modes");
+const fs = require("fs");
 
-const echoFileBin = 'test/fixtures/bin/echo-file';
+const echoFileBin = "test/fixtures/bin/echo-file";
 
 const files = {
   smallTextFile: {
-    path: 'test/fixtures/files/small-text-file.txt',
-    contents: fs.readFileSync('test/fixtures/files/small-text-file.txt'),
+    path: "test/fixtures/files/small-text-file.txt",
+    contents: fs.readFileSync("test/fixtures/files/small-text-file.txt"),
   },
   largeTextFile: {
-    path: 'test/fixtures/files/large-text-file.txt',
-    contents: fs.readFileSync('test/fixtures/files/large-text-file.txt'),
+    path: "test/fixtures/files/large-text-file.txt",
+    contents: fs.readFileSync("test/fixtures/files/large-text-file.txt"),
   },
   imageFile: {
-    path: 'test/fixtures/files/image-file.jpg',
-    contents: fs.readFileSync('test/fixtures/files/image-file.jpg'),
+    path: "test/fixtures/files/image-file.jpg",
+    contents: fs.readFileSync("test/fixtures/files/image-file.jpg"),
   },
 };
 
@@ -26,7 +26,7 @@ const files = {
 for (let spawn of syntaxModes) {
   describe(`process output (${spawn.name})`, () => {
 
-    it('should return text output as a buffer', () => {
+    it("should return text output as a buffer", () => {
       return spawn(`${echoFileBin} ${files.smallTextFile.path}`)
         .then((process) => {
           // By default, stdout and stderr should be buffers
@@ -47,7 +47,7 @@ for (let spawn of syntaxModes) {
         });
     });
 
-    it('should return binary output as a buffer', () => {
+    it("should return binary output as a buffer", () => {
       return spawn(`${echoFileBin} ${files.imageFile.path}`)
         .then((process) => {
           // By default, stdout and stderr should be buffers
@@ -68,12 +68,12 @@ for (let spawn of syntaxModes) {
         });
     });
 
-    it('should return text output as a string', () => {
-      return spawn(`${echoFileBin} ${files.smallTextFile.path}`, { encoding: 'utf8' })
+    it("should return text output as a string", () => {
+      return spawn(`${echoFileBin} ${files.smallTextFile.path}`, { encoding: "utf8" })
         .then((process) => {
           // By default, stdout and stderr should be strings
-          expect(process.stdout).to.be.a('string');
-          expect(process.stderr).to.be.a('string');
+          expect(process.stdout).to.be.a("string");
+          expect(process.stderr).to.be.a("string");
 
           // stdout should match the file
           expect(process.stdout).to.deep.equal(files.smallTextFile.contents.toString());
@@ -89,7 +89,7 @@ for (let spawn of syntaxModes) {
         });
     });
 
-    it('should return a stderror output as a Buffer', () => {
+    it("should return a stderror output as a Buffer", () => {
       return spawn(`${echoFileBin} --stderr ${files.smallTextFile.path}`)
         .then((process) => {
           // By default, stdout and stderr should be buffers
@@ -110,12 +110,12 @@ for (let spawn of syntaxModes) {
         });
     });
 
-    it('should return a stderror output as a string', () => {
-      return spawn(`${echoFileBin} --stderr ${files.smallTextFile.path}`, { encoding: 'utf8' })
+    it("should return a stderror output as a string", () => {
+      return spawn(`${echoFileBin} --stderr ${files.smallTextFile.path}`, { encoding: "utf8" })
         .then((process) => {
           // By default, stdout and stderr should be strings
-          expect(process.stdout).to.be.a('string');
-          expect(process.stderr).to.be.a('string');
+          expect(process.stdout).to.be.a("string");
+          expect(process.stderr).to.be.a("string");
 
           // stdout should be empty
           expect(process.stdout).to.have.lengthOf(0);
@@ -131,7 +131,7 @@ for (let spawn of syntaxModes) {
         });
     });
 
-    it('should return output and stderr as a Buffer', () => {
+    it("should return output and stderr as a Buffer", () => {
       return spawn(`${echoFileBin} --stdout ${files.smallTextFile.path} --stderr ${files.smallTextFile.path}`)
         .then((process) => {
           // By default, stdout and stderr should be buffers
@@ -152,12 +152,12 @@ for (let spawn of syntaxModes) {
         });
     });
 
-    it('should return output and stderr as a string', () => {
-      return spawn(`${echoFileBin} --stdout ${files.smallTextFile.path} --stderr ${files.smallTextFile.path}`, { encoding: 'utf8' })
+    it("should return output and stderr as a string", () => {
+      return spawn(`${echoFileBin} --stdout ${files.smallTextFile.path} --stderr ${files.smallTextFile.path}`, { encoding: "utf8" })
         .then((process) => {
           // By default, stdout and stderr should be strings
-          expect(process.stdout).to.be.a('string');
-          expect(process.stderr).to.be.a('string');
+          expect(process.stdout).to.be.a("string");
+          expect(process.stderr).to.be.a("string");
 
           // stdout should match the file
           expect(process.stdout).to.deep.equal(files.smallTextFile.contents.toString());
@@ -173,7 +173,7 @@ for (let spawn of syntaxModes) {
         });
     });
 
-    it('should return binary and stderr output as a Buffer', () => {
+    it("should return binary and stderr output as a Buffer", () => {
       return spawn(`${echoFileBin} --stdout ${files.imageFile.path} --stderr ${files.smallTextFile.path}`)
         .then((process) => {
           // By default, stdout and stderr should be buffers
@@ -194,12 +194,12 @@ for (let spawn of syntaxModes) {
         });
     });
 
-    it('should return binary and stderr output as a string', () => {
-      return spawn(`${echoFileBin} --stdout ${files.imageFile.path} --stderr ${files.smallTextFile.path}`, { encoding: 'utf8' })
+    it("should return binary and stderr output as a string", () => {
+      return spawn(`${echoFileBin} --stdout ${files.imageFile.path} --stderr ${files.smallTextFile.path}`, { encoding: "utf8" })
         .then((process) => {
           // By default, stdout and stderr should be strings
-          expect(process.stdout).to.be.a('string');
-          expect(process.stderr).to.be.a('string');
+          expect(process.stdout).to.be.a("string");
+          expect(process.stderr).to.be.a("string");
 
           // stdout should match the file
           expect(process.stdout).to.deep.equal(files.imageFile.contents.toString());
@@ -215,7 +215,7 @@ for (let spawn of syntaxModes) {
         });
     });
 
-    it('should return binary and text output as a Buffer', () => {
+    it("should return binary and text output as a Buffer", () => {
       return spawn(`${echoFileBin} --stdout ${files.imageFile.path} ${files.smallTextFile.path}`)
         .then((process) => {
           // By default, stdout and stderr should be buffers
@@ -236,12 +236,12 @@ for (let spawn of syntaxModes) {
         });
     });
 
-    it('should return binary and text output as a string', () => {
-      return spawn(`${echoFileBin} --stdout ${files.imageFile.path} ${files.smallTextFile.path}`, { encoding: 'utf8' })
+    it("should return binary and text output as a string", () => {
+      return spawn(`${echoFileBin} --stdout ${files.imageFile.path} ${files.smallTextFile.path}`, { encoding: "utf8" })
         .then((process) => {
           // By default, stdout and stderr should be strings
-          expect(process.stdout).to.be.a('string');
-          expect(process.stderr).to.be.a('string');
+          expect(process.stdout).to.be.a("string");
+          expect(process.stderr).to.be.a("string");
 
           // stdout should match the file
           expect(process.stdout.toString()).to.deep.equal(Buffer.concat([files.imageFile.contents, files.smallTextFile.contents]).toString());
@@ -258,7 +258,7 @@ for (let spawn of syntaxModes) {
     });
 
 
-    it('should return binary and text output, as well as multiple stderr output to a Buffer', () => {
+    it("should return binary and text output, as well as multiple stderr output to a Buffer", () => {
       return spawn(`${echoFileBin} --stdout ${files.imageFile.path} ${files.largeTextFile.path} --stderr ${files.largeTextFile.path} ${files.smallTextFile.path}`)
         .then((process) => {
           // By default, stdout and stderr should be buffers
@@ -279,12 +279,12 @@ for (let spawn of syntaxModes) {
         });
     });
 
-    it('should return binary and text output, as well as multiple stderr output to a string', () => {
-      return spawn(`${echoFileBin} --stdout ${files.imageFile.path} ${files.smallTextFile.path} --stderr ${files.largeTextFile.path} ${files.smallTextFile.path}`, { encoding: 'utf8' })
+    it("should return binary and text output, as well as multiple stderr output to a string", () => {
+      return spawn(`${echoFileBin} --stdout ${files.imageFile.path} ${files.smallTextFile.path} --stderr ${files.largeTextFile.path} ${files.smallTextFile.path}`, { encoding: "utf8" })
         .then((process) => {
           // By default, stdout and stderr should be strings
-          expect(process.stdout).to.be.a('string');
-          expect(process.stderr).to.be.a('string');
+          expect(process.stdout).to.be.a("string");
+          expect(process.stderr).to.be.a("string");
 
           // stdout should match the file
           expect(process.stdout.toString()).to.deep.equal(Buffer.concat([files.imageFile.contents, files.smallTextFile.contents]).toString());
@@ -300,7 +300,7 @@ for (let spawn of syntaxModes) {
         });
     });
 
-    it('should return binary and large/small text output, as well as multiple stderr output to a Buffer', () => {
+    it("should return binary and large/small text output, as well as multiple stderr output to a Buffer", () => {
       return spawn(`${echoFileBin} --stdout ${files.imageFile.path} ${files.largeTextFile.path} ${files.smallTextFile.path} --stderr ${files.largeTextFile.path} ${files.smallTextFile.path} ${files.largeTextFile.path}`)
         .then((process) => {
           // By default, stdout and stderr should be Buffers
@@ -321,14 +321,14 @@ for (let spawn of syntaxModes) {
         });
     });
 
-    it('should return binary and large/small text output, as well as multiple stderr output to a string', () => {
-      return spawn(`${echoFileBin} --stdout ${files.imageFile.path} ${files.largeTextFile.path} ${files.smallTextFile.path} --stderr ${files.largeTextFile.path} ${files.smallTextFile.path} ${files.largeTextFile.path}`, { encoding: 'utf8' })
+    it("should return binary and large/small text output, as well as multiple stderr output to a string", () => {
+      return spawn(`${echoFileBin} --stdout ${files.imageFile.path} ${files.largeTextFile.path} ${files.smallTextFile.path} --stderr ${files.largeTextFile.path} ${files.smallTextFile.path} ${files.largeTextFile.path}`, { encoding: "utf8" })
         .then((process) => {
           // By default, stdout and stderr should be strings
-          expect(process.stdout).to.be.a('string');
-          expect(process.stderr).to.be.a('string');
+          expect(process.stdout).to.be.a("string");
+          expect(process.stderr).to.be.a("string");
 
-         // stdout should match the file
+          // stdout should match the file
           expect(process.stdout.toString()).to.deep.equal(Buffer.concat([files.imageFile.contents, files.largeTextFile.contents, files.smallTextFile.contents]).toString());
 
           // stderr to match the files

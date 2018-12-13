@@ -1,11 +1,11 @@
-'use strict';
+"use strict";
 
 /**
  * This module allows us to interchangeably call any of the EZSpawn syntax modes
  * in a test.  It wraps all of the syntax modes in Promises, for consistency.
  */
 
-const ezSpawn = require('../../');
+const ezSpawn = require("../../");
 
 module.exports = [syncSyntax, promiseSyntax, callbackSyntax];
 
