@@ -103,7 +103,7 @@ Both async and sync both return a `Process` object that contains the following p
 
 Contributing
 --------------------------
-We welcome any contributions, enhancements, and bug-fixes. [File an issue](https://github.com/rkrauskopf/ez-spawn/issues) on GitHub and [submit a pull request](https://github.com/rkrauskopf/ez-spawn/pulls).
+Contributions, enhancements, and bug-fixes are welcome! [File an issue](https://github.com/rkrauskopf/ez-spawn/issues) on GitHub and [submit a pull request](https://github.com/rkrauskopf/ez-spawn/pulls).
 
 #### Building/Testing
 To build/test the project locally on your computer:
@@ -121,3 +121,12 @@ To build/test the project locally on your computer:
 License
 --------------------------
 ez-spawn is 100% free and open-source, under the [MIT license](LICENSE). Use it however you want.
+
+
+Big Thanks To
+--------------------------
+Thanks to these awesome companies for their support of Open Source developers ❤
+
+[![Travis CI](https://jsdevtools.org/img/badges/travis-ci.svg)](https://travis-ci.com)
+[![SauceLabs](https://jsdevtools.org/img/badges/sauce-labs.svg)](https://saucelabs.com)
+[![Coveralls](https://jsdevtools.org/img/badges/coveralls.svg)](https://coveralls.io)
