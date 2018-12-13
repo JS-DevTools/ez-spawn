@@ -7,8 +7,6 @@ Simple, consistent sync/async process spawning
 [![Windows Build Status](https://ci.appveyor.com/api/projects/status/github/rkrauskopf/ez-spawn?svg=true&branch=master&failingText=Windows%20build%20failing&passingText=Windows%20build%20passing)](https://ci.appveyor.com/project/rkrauskopf/ez-spawn/branch/master)
 
 [![Coverage Status](https://coveralls.io/repos/github/rkrauskopf/ez-spawn/badge.svg?branch=master)](https://coveralls.io/github/rkrauskopf/ez-spawn?branch=master)
-[![Codacy Score](https://api.codacy.com/project/badge/Grade/aa187e0355154fc59b97bdaa2482006c)](https://www.codacy.com/public/jamesmessinger/ez-spawn)
-[![Inline docs](http://inch-ci.org/github/rkrauskopf/ez-spawn.svg?branch=master&style=shields)](http://inch-ci.org/github/rkrauskopf/ez-spawn)
 [![Dependencies](https://david-dm.org/rkrauskopf/ez-spawn.svg)](https://david-dm.org/rkrauskopf/ez-spawn)
 
 [![npm](https://img.shields.io/npm/v/ez-spawn.svg?maxAge=43200)](https://www.npmjs.com/package/ez-spawn)
