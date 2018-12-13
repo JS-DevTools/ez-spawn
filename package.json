@@ -31,7 +31,7 @@
   "scripts": {
     "lint": "eslint lib test",
     "test": "mocha && npm run lint",
-    "cover": "istanbul cover _mocha",
+    "coverage": "nyc --reporter=text --reporter=lcov mocha",
     "upgrade": "npm-check -u",
     "bump": "bump --prompt --tag --push --all",
     "release": "npm run upgrade && npm test && npm run bump"
@@ -41,9 +41,9 @@
     "coveralls": "^2.11.14",
     "eslint": "^3.15.0",
     "eslint-config-modular": "^4.0.0",
-    "istanbul": "^0.4.5",
     "mocha": "^3.1.2",
     "npm-check": "^5.4.0",
+    "nyc": "^13.1.0",
     "version-bump-prompt": "^3.0.1"
   },
   "dependencies": {
