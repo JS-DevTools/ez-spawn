@@ -3,8 +3,8 @@ EZ-Spawn
 
 Simple, consistent sync/async process spawning
 
-[![Build Status](https://api.travis-ci.org/rkrauskopf/ez-spawn.svg?branch=master)](https://travis-ci.org/rkrauskopf/ez-spawn)
-[![Windows Build Status](https://ci.appveyor.com/api/projects/status/github/rkrauskopf/ez-spawn?svg=true&branch=master&failingText=Windows%20build%20failing&passingText=Windows%20build%20passing)](https://ci.appveyor.com/project/rkrauskopf/ez-spawn/branch/master)
+[![Cross-Platform Compatibility](https://jsdevtools.org/img/badges/os-badges.svg)](https://travis-ci.com/JS-DevTools/ez-spawn)
+[![Build Status](https://api.travis-ci.com/rkrauskopf/ez-spawn.svg?branch=master)](https://travis-ci.com/rkrauskopf/ez-spawn)
 
 [![Coverage Status](https://coveralls.io/repos/github/rkrauskopf/ez-spawn/badge.svg?branch=master)](https://coveralls.io/github/rkrauskopf/ez-spawn?branch=master)
 [![Dependencies](https://david-dm.org/rkrauskopf/ez-spawn.svg)](https://david-dm.org/rkrauskopf/ez-spawn)
