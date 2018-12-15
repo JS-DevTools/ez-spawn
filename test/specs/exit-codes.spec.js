@@ -6,39 +6,84 @@ const expect = chai.expect;
 
 for (let spawn of syntaxModes) {
   describe(`exit codes (${spawn.name})`, () => {
-    it("should return an exit code of 0", () => {
+    it("should return normally with a status code of 0", () => {
       return spawn("test/fixtures/bin/exit-code 0")
         .then((process) => {
-          // Make sure the process was spawned without any arguments
+          // Make sure the result is NOT an error object
+          expect(process).to.not.be.an.instanceOf(Error);
+          expect(process.error).to.be.undefined;
+          expect(process.message).to.be.undefined;
+          expect(process.toString()).to.equal("test/fixtures/bin/exit-code 0");
+
+          // Check the process output
           expect(process.command).to.equal("test/fixtures/bin/exit-code");
-          expect(process.exitCode).to.equal(0);
+          expect(process.status).to.equal(0);
+          expect(process.signal).to.equal(null);
+          expect(process.stdout).to.equal("Process was exited with code 0\n");
+          expect(process.stderr).to.equal("");
         });
     });
 
-    it("should return an exit code of 1", () => {
-      return spawn("test/fixtures/bin/exit-code 1")
-        .then((process) => {
-          // Make sure the process was spawned without any arguments
-          expect(process.command).to.equal("test/fixtures/bin/exit-code");
-          expect(process.exitCode).to.equal(1);
+    it("should throw an error on a non-zero status code", () => {
+      return spawn("test/fixtures/bin/exit-code 1 --silent")
+        .then(() => {
+          chai.assert(false, "An error should have been thrown, but it wasn't");
+        })
+        .catch((error) => {
+          // Make sure the result is an error object
+          expect(error).to.be.an.instanceOf(Error);
+          expect(error.error).to.be.undefined;
+          expect(error.message).to.equal("test/fixtures/bin/exit-code 1 --silent exited with a status of 1.");
+          expect(error.toString()).to.equal("ProcessError: test/fixtures/bin/exit-code 1 --silent exited with a status of 1.");
+
+          // Check the process output
+          expect(error.command).to.equal("test/fixtures/bin/exit-code");
+          expect(error.status).to.equal(1);
+          expect(error.signal).to.equal(null);
+          expect(error.stdout).to.equal("");
+          expect(error.stderr).to.equal("");
         });
     });
 
-    it("should return an exit code of 2", () => {
-      return spawn("test/fixtures/bin/exit-code 2")
-        .then((process) => {
-          // Make sure the process was spawned without any arguments
-          expect(process.command).to.equal("test/fixtures/bin/exit-code");
-          expect(process.exitCode).to.equal(2);
+    it("should throw an error on a non-zero status code with stderr", () => {
+      return spawn('test/fixtures/bin/exit-code 1 "Onoes!!!"')
+        .then(() => {
+          chai.assert(false, "An error should have been thrown, but it wasn't");
+        })
+        .catch((error) => {
+          // Make sure the result is an error object
+          expect(error).to.be.an.instanceOf(Error);
+          expect(error.error).to.be.undefined;
+          expect(error.message).to.equal("Onoes!!!");
+          expect(error.toString()).to.equal("ProcessError: Onoes!!!");
+
+          // Check the process output
+          expect(error.command).to.equal("test/fixtures/bin/exit-code");
+          expect(error.status).to.equal(1);
+          expect(error.signal).to.equal(null);
+          expect(error.stdout).to.equal("");
+          expect(error.stderr).to.equal("Onoes!!!\n");
         });
     });
 
-    it("should return an exit code > 128", () => {
-      return spawn("test/fixtures/bin/exit-code 129")
-        .then((process) => {
-          // Make sure the process was spawned without any arguments
-          expect(process.command).to.equal("test/fixtures/bin/exit-code");
-          expect(process.exitCode).to.equal(129);
+    it("should throw an error on a non-zero status code above 128", () => {
+      return spawn("test/fixtures/bin/exit-code 256")
+        .then(() => {
+          chai.assert(false, "An error should have been thrown, but it wasn't");
+        })
+        .catch((error) => {
+          // Make sure the result is an error object
+          expect(error).to.be.an.instanceOf(Error);
+          expect(error.error).to.be.undefined;
+          expect(error.message).to.equal("Process was exited with code 256");
+          expect(error.toString()).to.equal("ProcessError: Process was exited with code 256");
+
+          // Check the process output
+          expect(error.command).to.equal("test/fixtures/bin/exit-code");
+          expect(error.status).to.equal(256);
+          expect(error.signal).to.equal(null);
+          expect(error.stdout).to.equal("");
+          expect(error.stderr).to.equal("Process was exited with code 256\n");
         });
     });
   });

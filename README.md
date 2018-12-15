@@ -1,7 +1,7 @@
 EZ-Spawn
 =======================
 
-#### Simple, consistent sync/async process spawning
+#### Simple, consistent process spawning
 
 [![Cross-Platform Compatibility](https://jsdevtools.org/img/badges/os-badges.svg)](https://travis-ci.com/JS-DevTools/ez-spawn)
 [![Build Status](https://api.travis-ci.com/rkrauskopf/ez-spawn.svg?branch=master)](https://travis-ci.com/rkrauskopf/ez-spawn)
@@ -19,13 +19,16 @@ Features
   Pass the program and arguments as a single string, an array of strings, separate parameters, or a mix of all three!
 
 - **Pick your async syntax**<br>
-  Supports Promises, `async`/`await`, or callbacks
+  Supports Promises, `async`/`await`, or callbacks.
+
+- **Simple, consistent error handling**<br>
+  Non-zero exit codes are treated just like any other error. See [Error Handling](#error-handling) for more details.
 
 - **String output by default**<br>
   stdout and stderr output is automatically decoded as UTF-8 text by default.  You can set the [`encoding` option](#options-object) for a different encoding, or even raw binary buffers.
 
 - **Windows Support**<br>
-  Excellent Windows support, thanks to [cross-spawn](https://github.com/moxystudio/node-cross-spawn)
+  Excellent Windows support, thanks to [cross-spawn](https://github.com/moxystudio/node-cross-spawn).
 
 
 Related Projects
@@ -177,17 +180,31 @@ Asynchronously spawns a process.  The Promise resolves (or the callback is calle
 - `output` (array of strings or Buffers)<br>
   The process's stdio [stdin, stdout, stderr].
 
-- `exitCode` (number)<br>
-  The process's exit code.
+- `status` (number)<br>
+  The process's status code (a.k.a. "exit code").
 
 - `signal` (string or null)<br>
   The signal used to kill the process, if the process was killed by a signal.
 
-- `error` (Error or null)<br>
-  The error that occurred while spawning or killing the process, if any.
-
 - `toString()`<br>
   Returns the `command` and `args` as a single string.  Useful for console logging.
+
+
+Error Handling
+--------------------------
+All sorts of errors can occur when spawning processes.  Node's built-in [`spawn`](https://nodejs.org/api/child_process.html#child_process_child_process_spawn_command_args_options) and [`spawnSync`](https://nodejs.org/api/child_process.html#child_process_child_process_spawnsync_command_args_options) functions handle different types of errors in different ways.  Sometimes they throw the error, somtimes they emit an ["error" event](https://nodejs.org/docs/latest/api/child_process.html#child_process_event_error), and sometimes they return an object with an `error` property.  They also don't treat non-zero exit codes as errors.  So it's up to you to handle all these different types of errors, and check the exit code too.
+
+EZ-Spawn simplifies things by treating all errors the same.  If any error occurs, or if the process exits with a non-zero exit code, then an error is thrown.  The error will have all the same properties as the [`Process` object](#process-object), such as `status`, `stderr`, `signal`, etc.
+
+```javascript
+try {
+  let process = ezSpawn.sync(`git commit -am "Fixed a bug"`, { throwOnError: true });
+  console.log("Everything worked great!", process.stdout);
+}
+catch (error) {
+  console.error("Something went wrong!", error.status, error.stderr);
+}
+```
 
 
 Contributing

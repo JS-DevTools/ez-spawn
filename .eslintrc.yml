@@ -9,3 +9,7 @@ extends:
   - modular/style
   - modular/es6
   - modular/node
+
+rules:
+  no-catch-shadow: off
+  no-shadow: off

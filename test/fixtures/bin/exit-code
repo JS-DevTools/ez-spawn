@@ -7,8 +7,16 @@
  */
 "use strict";
 
-let exitCode = process.argv[2];
+let exitCode = parseInt(process.argv[2]);
+let message = process.argv[3] || `Process was exited with code ${exitCode}`;
 
-console.log("Process was exited with code ", exitCode);
+if (message !== "--silent") {
+  if (exitCode) {
+    console.error(message);
+  }
+  else {
+    console.log(message);
+  }
+}
 
 process.exit(exitCode);

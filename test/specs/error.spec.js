@@ -5,15 +5,25 @@ const expect = chai.expect;
 const syntaxModes = require("../fixtures/syntax-modes");
 
 for (let spawn of syntaxModes) {
-  describe("error handling", () => {
+  describe(`error handling (${spawn.name})`, () => {
     it("should throw an error if no args are passed", () => {
       return spawn()
         .then(() => {
           chai.assert(false, "no error was thrown");
         })
         .catch(error => {
+          // Verify the error
           expect(error).to.be.an.instanceOf(Error);
           expect(error.message).to.equal("The command to execute is missing.");
+          expect(error.toString()).to.equal("Error: The command to execute is missing.");
+
+          // Check the process info
+          expect(error.command).to.equal("");
+          expect(error.args).to.deep.equal([]);
+          expect(error.status).to.equal(null);
+          expect(error.signal).to.equal(null);
+          expect(error.stdout).to.equal("");
+          expect(error.stderr).to.equal("");
         });
     });
 
@@ -23,19 +33,39 @@ for (let spawn of syntaxModes) {
           chai.assert(false, "no error was thrown");
         })
         .catch(error => {
+          // Verify the error
           expect(error).to.be.an.instanceOf(Error);
           expect(error.message).to.equal("The command to execute is missing.");
+          expect(error.toString()).to.equal("Error: The command to execute is missing.");
+
+          // Check the process info
+          expect(error.command).to.equal("");
+          expect(error.args).to.deep.equal([]);
+          expect(error.status).to.equal(null);
+          expect(error.signal).to.equal(null);
+          expect(error.stdout).to.equal("");
+          expect(error.stderr).to.equal("");
         });
     });
 
     it("should throw and error if the command is not a string", () => {
-      return spawn({}, "args")
+      return spawn({}, "--foo", "--bar")
         .then(() => {
           chai.assert(false, "no error was thrown");
         })
         .catch(error => {
+          // Verify the error
           expect(error).to.be.an.instanceOf(Error);
           expect(error.message).to.equal("The command to execute should be a string, not an Object.");
+          expect(error.toString()).to.equal("Error: The command to execute should be a string, not an Object.");
+
+          // Check the process info
+          expect(error.command).to.equal("[object Object]");
+          expect(error.args).to.deep.equal(["--foo", "--bar"]);
+          expect(error.status).to.equal(null);
+          expect(error.signal).to.equal(null);
+          expect(error.stdout).to.equal("");
+          expect(error.stderr).to.equal("");
         });
     });
 
@@ -45,25 +75,79 @@ for (let spawn of syntaxModes) {
           chai.assert(false, "no error was thrown");
         })
         .catch(error => {
+          // Verify the error
           expect(error).to.be.an.instanceOf(Error);
           expect(error.message).to.equal("The command arguments should be strings, but argument #2 is an Object.");
+          expect(error.toString()).to.equal("Error: The command arguments should be strings, but argument #2 is an Object.");
+
+          // Check the process info
+          expect(error.command).to.equal("test/fixtures/bin/echo-args");
+          expect(error.args).to.deep.equal(["--foo", "[object Object]"]);
+          expect(error.status).to.equal(null);
+          expect(error.signal).to.equal(null);
+          expect(error.stdout).to.equal("");
+          expect(error.stderr).to.equal("");
         });
     });
 
     describe("error while spawning the process", () => {
-      it("should set `process.error` when a command is not found", () => {
-        return spawn("test/fixtures/bin/wrong-command")
-          .then((process) => {
-            expect(process.error).to.be.an.instanceOf(Error);
-            expect(process.error.message).to.contain("test/fixtures/bin/wrong-command ENOENT");
+      it("should throw an error when a command is not found", () => {
+        return spawn("test/fixtures/bin/wrong-command --foo --bar")
+          .then(() => {
+            chai.assert(false, "no error was thrown");
+          })
+          .catch(error => {
+            // Verify the error
+            expect(error).to.be.an.instanceOf(Error);
+            expect(error.message).to.contain("test/fixtures/bin/wrong-command ENOENT");
+            expect(error.toString()).to.contain("test/fixtures/bin/wrong-command ENOENT");
+
+            // Check the process info
+            expect(error.command).to.equal("test/fixtures/bin/wrong-command");
+            expect(error.args).to.deep.equal(["--foo", "--bar"]);
+
+            if (spawn.name === "syncSyntax") {
+              // TODO: Find out why the status code is 1 for spawnSync, but not for spawn
+              // TODO: I suspect that this may be a bug in cross-spawn
+              expect(error.status).to.equal(1);
+            }
+            else {
+              expect(error.status).to.equal(null);
+            }
+
+            expect(error.signal).to.equal(null);
+            expect(error.stdout).to.equal("");
+            expect(error.stderr).to.contain("wrong-command");
           });
       });
 
       it("should return an error on a non-executable file", () => {
-        return spawn("test/fixtures/bin/text-file")
-          .then((process) => {
-            expect(process.error).to.be.an.instanceOf(Error);
-            expect(process.error.message).to.contain("test/fixtures/bin/text-file ENOENT");
+        return spawn("test/fixtures/bin/text-file --foo --bar")
+          .then(() => {
+            chai.assert(false, "no error was thrown");
+          })
+          .catch(error => {
+            // Verify the error
+            expect(error).to.be.an.instanceOf(Error);
+            expect(error.message).to.contain("test/fixtures/bin/text-file ENOENT");
+            expect(error.toString()).to.contain("test/fixtures/bin/text-file ENOENT");
+
+            // Check the process info
+            expect(error.command).to.equal("test/fixtures/bin/text-file");
+            expect(error.args).to.deep.equal(["--foo", "--bar"]);
+
+            if (spawn.name === "syncSyntax") {
+              // TODO: Find out why the status code is 1 for spawnSync, but not for spawn
+              // TODO: I suspect that this may be a bug in cross-spawn
+              expect(error.status).to.equal(1);
+            }
+            else {
+              expect(error.status).to.equal(null);
+            }
+
+            expect(error.signal).to.equal(null);
+            expect(error.stdout).to.equal("");
+            expect(error.stderr).to.contain("text-file");
           });
       });
     });
