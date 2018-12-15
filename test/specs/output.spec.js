@@ -120,10 +120,9 @@ for (let spawn of syntaxModes) {
     });
 
     it("should return stdout and stderr as text", () => {
-      return spawn
-        (
-          `${echoFileBin} --stdout ${files.smallTextFile.path} --stderr ${files.smallTextFile.path}`
-        )
+      return spawn(
+        `${echoFileBin} --stdout ${files.smallTextFile.path} --stderr ${files.smallTextFile.path}`
+      )
         .then((process) => {
           // stdout should match the file contents
           expect(process.stdout).to.equal(files.smallTextFile.text);
@@ -139,11 +138,10 @@ for (let spawn of syntaxModes) {
     });
 
     it("should return stdout and stderr as buffers", () => {
-      return spawn
-        (
-          `${echoFileBin} --stdout ${files.smallTextFile.path} --stderr ${files.smallTextFile.path}`,
-          { encoding: "buffer" }
-        )
+      return spawn(
+        `${echoFileBin} --stdout ${files.smallTextFile.path} --stderr ${files.smallTextFile.path}`,
+        { encoding: "buffer" }
+      )
         .then((process) => {
           // stdout and stderr should be buffers
           expect(Buffer.isBuffer(process.stdout)).to.equal(true);
@@ -163,11 +161,10 @@ for (let spawn of syntaxModes) {
     });
 
     it("should return an image via stdout and stderr as buffers", () => {
-      return spawn
-        (
-          `${echoFileBin} --stdout ${files.imageFile.path} --stderr ${files.smallTextFile.path}`,
-          { encoding: "buffer" }
-        )
+      return spawn(
+        `${echoFileBin} --stdout ${files.imageFile.path} --stderr ${files.smallTextFile.path}`,
+        { encoding: "buffer" }
+      )
         .then((process) => {
           // stdout and stderr should be buffers
           expect(Buffer.isBuffer(process.stdout)).to.equal(true);
@@ -203,11 +200,10 @@ for (let spawn of syntaxModes) {
     });
 
     it("should concatenate multiple stdout buffers", () => {
-      return spawn
-        (
-          `${echoFileBin} --stdout ${files.imageFile.path} ${files.smallTextFile.path}`,
-          { encoding: "buffer" }
-        )
+      return spawn(
+        `${echoFileBin} --stdout ${files.imageFile.path} ${files.smallTextFile.path}`,
+        { encoding: "buffer" }
+      )
         .then((process) => {
           // stdout and stderr should be buffers
           expect(Buffer.isBuffer(process.stdout)).to.equal(true);
@@ -231,11 +227,10 @@ for (let spawn of syntaxModes) {
 
 
     it("should concatenate multiple stdout and stderr strings", () => {
-      return spawn
-        (
-          `${echoFileBin} --stdout ${files.smallTextFile.path} ${files.largeTextFile.path}` +
+      return spawn(
+        `${echoFileBin} --stdout ${files.smallTextFile.path} ${files.largeTextFile.path}` +
           ` --stderr ${files.largeTextFile.path} ${files.smallTextFile.path}`
-        )
+      )
         .then((process) => {
           // stdout should be the concatenated contents of both text files
           expect(process.stdout).to.equal(files.smallTextFile.text + files.largeTextFile.text);
@@ -251,12 +246,11 @@ for (let spawn of syntaxModes) {
     });
 
     it("should concatenate multiple stdout and stderr buffers", () => {
-      return spawn
-        (
-          `${echoFileBin} --stdout ${files.imageFile.path} ${files.smallTextFile.path}` +
+      return spawn(
+        `${echoFileBin} --stdout ${files.imageFile.path} ${files.smallTextFile.path}` +
           ` --stderr ${files.smallTextFile.path} ${files.imageFile.path}`,
-          { encoding: "buffer" }
-        )
+        { encoding: "buffer" }
+      )
         .then((process) => {
           // stdout and stderr should be buffers
           expect(Buffer.isBuffer(process.stdout)).to.equal(true);
@@ -282,11 +276,10 @@ for (let spawn of syntaxModes) {
     });
 
     it("should support LOTS of text output", () => {
-      return spawn
-        (
-          `${echoFileBin} --stdout ${files.largeTextFile.path} ${files.largeTextFile.path} ${files.smallTextFile.path}` +
+      return spawn(
+        `${echoFileBin} --stdout ${files.largeTextFile.path} ${files.largeTextFile.path} ${files.smallTextFile.path}` +
           ` --stderr ${files.largeTextFile.path} ${files.smallTextFile.path} ${files.largeTextFile.path}`
-        )
+      )
         .then((process) => {
           // stdout should contain the contents of all three files
           expect(process.stdout).to.equal(
@@ -306,12 +299,11 @@ for (let spawn of syntaxModes) {
     });
 
     it("should support LOTS of binary output", () => {
-      return spawn
-        (
-          `${echoFileBin} --stdout ${files.imageFile.path} ${files.largeTextFile.path} ${files.smallTextFile.path}` +
+      return spawn(
+        `${echoFileBin} --stdout ${files.imageFile.path} ${files.largeTextFile.path} ${files.smallTextFile.path}` +
           ` --stderr ${files.largeTextFile.path} ${files.smallTextFile.path} ${files.imageFile.path}`,
-          { encoding: "buffer" }
-        )
+        { encoding: "buffer" }
+      )
         .then((process) => {
           // stdout and stderr should be buffers
           expect(Buffer.isBuffer(process.stdout)).to.equal(true);
