@@ -106,9 +106,8 @@ for (let spawn of syntaxModes) {
             expect(error.command).to.equal("test/fixtures/bin/wrong-command");
             expect(error.args).to.deep.equal(["--foo", "--bar"]);
 
-            if (spawn.name === "syncSyntax") {
-              // TODO: Find out why the status code is 1 for spawnSync, but not for spawn
-              // TODO: I suspect that this may be a bug in cross-spawn
+            if (spawn.name === "syncSyntax" && process.platform === "win32") {
+              // On Windows, cross-spawn tries to run the command via "cmd", so it has an exit code
               expect(error.status).to.equal(1);
             }
             else {
@@ -136,9 +135,8 @@ for (let spawn of syntaxModes) {
             expect(error.command).to.equal("test/fixtures/bin/text-file");
             expect(error.args).to.deep.equal(["--foo", "--bar"]);
 
-            if (spawn.name === "syncSyntax") {
-              // TODO: Find out why the status code is 1 for spawnSync, but not for spawn
-              // TODO: I suspect that this may be a bug in cross-spawn
+            if (spawn.name === "syncSyntax" && process.platform === "win32") {
+              // On Windows, cross-spawn tries to run the command via "cmd", so it has an exit code
               expect(error.status).to.equal(1);
             }
             else {
