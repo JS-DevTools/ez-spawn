@@ -5,10 +5,10 @@
  * This program exits the process with whatever exit code was passed in
  *
  */
-'use strict';
+"use strict";
 
 let exitCode = process.argv[2];
 
-console.log('Process was exited with code ', exitCode);
+console.log("Process was exited with code ", exitCode);
 
 process.exit(exitCode);

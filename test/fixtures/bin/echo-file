@@ -5,18 +5,18 @@
  * This program writes the contents of the specified file to stdout
  *
  */
-'use strict';
+"use strict";
 
-const fs = require('fs');
+const fs = require("fs");
 let errorFlag = false;
 
 for (let i = 2; i < process.argv.length; i++) {
   let filePath = process.argv[i];
 
-  if (filePath === '--stderr') {
+  if (filePath === "--stderr") {
     errorFlag = true;
   }
-  else if (filePath === '--stdout') {
+  else if (filePath === "--stdout") {
     errorFlag = false;
   }
   else {

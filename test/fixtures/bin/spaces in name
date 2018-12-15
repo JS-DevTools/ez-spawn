@@ -6,5 +6,6 @@
  * which lets us make sure that ez-spawn properly handles spaces in file names.
  *
  */
+"use strict";
 
-require('./echo-args');
+require("./echo-args");
