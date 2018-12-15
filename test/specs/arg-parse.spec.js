@@ -149,6 +149,25 @@ for (let spawn of syntaxModes) {
           });
 
       });
+
+      it("should run a command with spaces in the name", () => {
+        return spawn("test/fixtures/bin/spaces in name", '"foo bar"', '"baz fiz"')
+          .then((process) => {
+            // Make sure the process was spawned with the correct command and args
+            expect(process.command).to.equal("test/fixtures/bin/spaces in name");
+            expect(process.args).to.deep.equal([
+              '"foo bar"', '"baz fiz"'
+            ]);
+
+            // The output should contain each argument on its own line
+            let expectedOutput =
+              'Argument #1: "foo bar"\n' +
+              'Argument #2: "baz fiz"\n';
+
+            expect(process.stderr.toString()).to.equal("");
+            expect(process.stdout.toString()).to.equal(expectedOutput);
+          });
+      });
     });
 
     describe("with an arg array", () => {
@@ -249,6 +268,26 @@ for (let spawn of syntaxModes) {
             expect(process.stderr.toString()).to.equal("");
             expect(process.stdout.toString()).to.equal(expectedOutput);
           });
+      });
+
+      it("should run a command with spaces in the name", () => {
+        return spawn("test/fixtures/bin/spaces in name", ['"foo bar"', '"baz fiz"'])
+          .then((process) => {
+            // Make sure the process was spawned with the correct command and args
+            expect(process.command).to.equal("test/fixtures/bin/spaces in name");
+            expect(process.args).to.deep.equal([
+              '"foo bar"', '"baz fiz"'
+            ]);
+
+            // The output should contain each argument on its own line
+            let expectedOutput =
+              'Argument #1: "foo bar"\n' +
+              'Argument #2: "baz fiz"\n';
+
+            expect(process.stderr.toString()).to.equal("");
+            expect(process.stdout.toString()).to.equal(expectedOutput);
+          });
+
       });
     });
 
@@ -370,8 +409,22 @@ for (let spawn of syntaxModes) {
           });
       });
 
+      it("should run a command with spaces in the name", () => {
+        return spawn('"test/fixtures/bin/spaces in name" "foo bar" "baz fiz"')
+          .then((process) => {
+            // Make sure the process was spawned with the correct command and args
+            expect(process.command).to.equal("test/fixtures/bin/spaces in name");
+            expect(process.args).to.deep.equal([
+              "foo bar", "baz fiz"
+            ]);
 
+            // The output should contain each argument on its own line
+            let expectedOutput =
+              "Argument #1: foo bar\n" +
+              "Argument #2: baz fiz\n";
 
+            expect(process.stderr.toString()).to.equal("");
+            expect(process.stdout.toString()).to.equal(expectedOutput);
           });
       });
     });
