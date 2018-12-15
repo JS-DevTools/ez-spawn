@@ -112,10 +112,10 @@ for (let spawn of syntaxModes) {
       });
 
       it("should run a command with arguments quoted as strings", () => {
-        return spawn("test/fixtures/bin/spaces in name", '"foo bar"', '"baz fiz"')
+        return spawn("test/fixtures/bin/echo-args", '"foo bar"', '"baz fiz"')
           .then((process) => {
             // Make sure the process was spawned with the correct command and args
-            expect(process.command).to.equal("test/fixtures/bin/spaces in name");
+            expect(process.command).to.equal("test/fixtures/bin/echo-args");
             expect(process.args).to.deep.equal([
               '"foo bar"', '"baz fiz"'
             ]);
@@ -369,50 +369,9 @@ for (let spawn of syntaxModes) {
             expect(process.stdout.toString()).to.equal(expectedOutput);
           });
       });
-    });
 
-    describe("failure tests", () => {
-      it("should throw an error if no args are passed", () => {
-        return spawn()
-          .then(() => {
-            chai.assert(false, "no error was thrown");
-          })
-          .catch(error => {
-            expect(error).to.be.an.instanceOf(Error);
-            expect(error.message).to.equal("The command to execute is missing.");
-          });
-      });
 
-      it("should throw an error if the command is empty", () => {
-        return spawn("")
-          .then(() => {
-            chai.assert(false, "no error was thrown");
-          })
-          .catch(error => {
-            expect(error).to.be.an.instanceOf(Error);
-            expect(error.message).to.equal("The command to execute is missing.");
-          });
-      });
 
-      it("should throw and error if the command is not a string", () => {
-        return spawn({}, "args")
-          .then(() => {
-            chai.assert(false, "no error was thrown");
-          })
-          .catch(error => {
-            expect(error).to.be.an.instanceOf(Error);
-            expect(error.message).to.equal("The command to execute should be a string, not an Object.");
-          });
-      });
-
-      it("should throw an error if the command args are not strings or arrays", () => {
-        return spawn("test/fixtures/bin/echo-args", ["--foo", {}])
-          .then(() => {
-            chai.assert(false, "no error was thrown");
-          })
-          .catch(error => {
-            expect(error).to.be.an.instanceOf(Error);
-            expect(error.message).to.equal("The command arguments should be strings, but argument #2 is an Object.");
           });
       });
     });
