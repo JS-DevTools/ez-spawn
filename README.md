@@ -1,7 +1,7 @@
 EZ-Spawn
 =======================
 
-Simple, consistent sync/async process spawning
+#### Simple, consistent sync/async process spawning
 
 [![Cross-Platform Compatibility](https://jsdevtools.org/img/badges/os-badges.svg)](https://travis-ci.com/JS-DevTools/ez-spawn)
 [![Build Status](https://api.travis-ci.com/rkrauskopf/ez-spawn.svg?branch=master)](https://travis-ci.com/rkrauskopf/ez-spawn)
@@ -15,40 +15,54 @@ Simple, consistent sync/async process spawning
 
 Features
 --------------------------
-* Normalizes the results of [spawn](https://nodejs.org/api/child_process.html#child_process_child_process_spawn_command_args_options) and [spawnSync](https://nodejs.org/api/child_process.html#child_process_child_process_spawnsync_command_args_options) calls through the `async` and `sync` functions that ez-spawn provides.
-* Normalizes the arguments passed into the `spawn` and `spawnSync`
-* Both return the same process object no matter how it is called.
+- **Flexible input parameters**<br>
+  Pass the program and arguments as a single string, an array of strings, separate parameters, or a mix of all three!
 
-* Tested on Mac, Linux, and Windows as well as Node v4-7
+- **Pick your async syntax**<br>
+  Supports Promises, `async`/`await`, or callbacks
+
+- **String output by default**<br>
+  stdout and stderr output is automatically decoded as UTF-8 text by default.  You can set the [`encoding` option](#options-object) for a different encoding, or even raw binary buffers.
+
+- **Windows Support**<br>
+  Excellent Windows support, thanks to [cross-spawn](https://github.com/moxystudio/node-cross-spawn)
 
 
+Related Projects
+--------------------------
+- [chai-exec](https://github.com/JS-DevTools/chai-exec) - Chai assertion plugin for testing CLIs
 
-Example
+
+Examples
 --------------------------
 
 ```javascript
-let sync = require('ez-spawn').sync;
-let async = require('ez-spawn').async;
+const ezSpawn = require('ez-spawn');
+
+// These are all identical
+ezSpawn.sync(`git commit -am "Fixed a bug"`);           // Pass program and args as a string
+ezSpawn.sync("git", "commit", "-am", "Fixed a bug");    // Pass program and args as separate params
+ezSpawn.sync(["git", "commit", "-am", "Fixed a bug"]);  // Pass program and args as an array
+ezSpawn.sync("git", ["commit", "-am", "Fixed a bug"]);  // Pass program as a string and args as an array
 
 // Make a synchronous call
-let process = sync('ls', '-al');
+let process = ezSpawn.sync(`git commit -am "Fixed a bug"`);
+console.log(process.stdout);
 
-//Make an asynchronous call that accepts a callback
-async('ls', '-a' '-l', (process) => {
-  console.log(process.status);
-  //Etc...
+//Make an asynchronous call, using async/await syntax
+let process = await ezSpawn.async(`git commit -am "Fixed a bug"`);
+console.log(process.stdout);
+
+//Make an asynchronous call, using callback syntax
+ezSpawn.async(`git commit -am "Fixed a bug"`, (err, process) => {
+  console.log(process.stdout);
 });
 
-//Make an asynchronous call that returns a promise
-async('ls -al')
+//Make an asynchronous call, using Promise syntax
+ezSpawn.async(`git commit -am "Fixed a bug"`)
   .then((process) => {
     console.log(process.stdout);
-    //Etc...
-  })
-  .catch((err) => {
-    //Etc...
-  })
-
+  });
 ```
 
 Installation
@@ -63,42 +77,117 @@ npm install ez-spawn
 Then require it in your code:
 
 ```javascript
-let async = require("ez-spawn").async;
-let sync = require("ez-spawn").sync;
+// Require the whole package
+const ezSpawn = require("ez-spawn");
+
+// Or require "sync" or "async" directly
+const async = require("ez-spawn").async;
+const sync = require("ez-spawn").sync;
 ```
 
 
 API
 --------------------------
-### `sync(command, [arguments], [options])`
-Synchronously spawns a process and returns a `Process` object
+### `ezSpawn.sync(command, [...arguments], [options])`
+Synchronously spawns a process.  This function returns when the proecess exits.
 
-* `command` - The command string to be executed.
-* `arguments` - _(optional)_ An array or a series of individual string parameters that are the arguments to be associated with the `command` parameter.
-* `options` - _(optional)_ The [spawnSync](https://nodejs.org/api/child_process.html#child_process_child_process_spawnsync_command_args_options) options object.
+- The `command` and `arguments` parameters can be passed as a single space-separated string, or as an array of strings, or as separate parameters.
 
-### `async(command, [arguments], [options], callback?)`
-Asynchronously spawns a process and returns a promise or a callback if specified that contains a `Process` object.
+- The [`options` object](#options-object) is optional.
 
-* `command` - The command string to be executed.
-* `arguments` - _(optional)_ An array or a series of individual string parameters that are the arguments to be associated with the `command` parameter.
-* `options` - _(optional)_ The [spawnSync](https://nodejs.org/api/child_process.html#child_process_child_process_spawnsync_command_args_options) options object.
-* `callback` - _(optional)_ If a callback is not specified then spawned process results are returned as a [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)
+- Returns a [`Process` object](#process-object)
 
-### `Process`
-Both async and sync both return a `Process` object that contains the following properties. It mirrors the object returned by [spawnSync](https://nodejs.org/api/child_process.html#child_process_child_process_spawnsync_command_args_options).
 
-* `command` - The command that was used to spawn the process.
-* `args` - The command-line arguments that were passed to the process.
-* `pid` - The numeric process ID assigned by the operating system.
-* `stdout` - The process's standard output.
-* `stderr` - The process's error output.
-* `output` - All program output [stdin, stdout, stderr].
-* `exitCode` - The process's exit code.
-* `signal` - The signal used to kill the process, if applicable.
-* `error` - The error that occurred while spawning or killing the process, if any.
-* `toString()` - Returns the full command and arguments used to spawn the process.
+### `ezSpawn.async(command, [...arguments], [options], [callback])`
+Asynchronously spawns a process.  The Promise resolves (or the callback is called) when the process exits.
 
+- The `command` and `arguments` parameters can be passed as a single space-separated string, or as an array of strings, or as separate parameters.
+
+- The [`options` object](#options-object) is optional.
+
+- If a `callback` is provided, then it will be called when the process exits.  The first is either an `Error` or `null`.  The second parameter is a [`Process` object](#process-object).
+
+- If **no** `callback` is provided, then a [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) is returned.  It will resolve with a [`Process` object](#process-object) when the process exits.
+
+
+### `Options` object
+`ezSpawn.async()` and `ezSpawn.sync()` both accept an optional `options` object that closely mirrors the `options` parameter of Node's [`spawn`](https://nodejs.org/api/child_process.html#child_process_child_process_spawn_command_args_options), [`exec`](https://nodejs.org/api/child_process.html#child_process_child_process_exec_command_options_callback), [`spawnSync`](https://nodejs.org/api/child_process.html#child_process_child_process_spawnsync_command_args_options), and [`execSync`](https://nodejs.org/api/child_process.html#child_process_child_process_execsync_command_options) functions.
+
+- `cwd` (string)<br>
+  The current working directory of the child process.
+
+- `env` (Object)<br>
+  Environment variable key-value pairs.
+
+- `argv0` (string)<br>
+  Explicitly set the value of `argv[0]` sent to the child process. This will be set to `command` if not specified.
+
+- `stdio` (Array or string)<br>
+  The child process's stdio configuration (see [options.stdio](https://nodejs.org/api/child_process.html#child_process_options_stdio)).
+
+- `input` (string, Buffer, TypedArray, or DataView)<br>
+  The value which will be passed as stdin to the spawned process. Supplying this value will override `stdio[0]`.
+
+- `uid` (number)<br>
+  Sets the user identity of the process.
+
+- `gid` (number)<br>
+  Sets the group identity of the process.
+
+- `timeout` (number)<br>
+  The maximum amount of time (in milliseconds) the process is allowed to run.
+
+- `killSignal` (string or integer)<br>
+  The signal value to be used when the spawned process will be killed. Defaults to `"SIGTERM"`.
+
+- `maxBuffer` (number)<br>
+  The largest amount of data in bytes allowed on stdout or stderr. If exceeded, the child process is terminated.
+
+- `encoding` (string)<br>
+  The encoding used for all stdio inputs and outputs. Defaults to `"utf8"`. Set to `"buffer"` for raw binary output.
+
+- `shell` (boolean or string)<br>
+  If `true`, then `command` will be run inside of a shell. Uses "/bin/sh" on UNIX, and `process.env.ComSpec` on Windows. A different shell can be specified as a string.
+
+- `windowsVerbatimArguments` (boolean)<br>
+  No quoting or escaping of arguments is done on Windows. Ignored on Unix. This is set to true automatically when `shell` is `"CMD"`.
+
+- `windowsHide` (boolean)<br>
+  Hide the subprocess console window that would normally be created on Windows systems.
+
+
+### `Process` object
+`ezSpawn.async()` and `ezSpawn.sync()` both return a `Process` object that closely mirrors the object returned by Node's [`spawnSync`](https://nodejs.org/api/child_process.html#child_process_child_process_spawnsync_command_args_options) function.
+
+- `command` (string)<br>
+  The command that was used to spawn the process.
+
+- `args` (array of strings)<br>
+  The command-line arguments that were passed to the process.
+
+- `pid` (number)<br>
+  The numeric process ID assigned by the operating system.
+
+- `stdout` (string or Buffer)<br>
+  The process's standard output. This is the same value as `output[1]`.
+
+- `stderr` (string or Buffer)<br>
+  The process's error output. This is the same value as `output[2]`.
+
+- `output` (array of strings or Buffers)<br>
+  The process's stdio [stdin, stdout, stderr].
+
+- `exitCode` (number)<br>
+  The process's exit code.
+
+- `signal` (string or null)<br>
+  The signal used to kill the process, if the process was killed by a signal.
+
+- `error` (Error or null)<br>
+  The error that occurred while spawning or killing the process, if any.
+
+- `toString()`<br>
+  Returns the `command` and `args` as a single string.  Useful for console logging.
 
 
 Contributing
