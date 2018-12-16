@@ -67,7 +67,7 @@ for (let spawn of syntaxModes) {
     });
 
     it("should throw an error on a non-zero status code above 128", () => {
-      return spawn("test/fixtures/bin/exit-code 256")
+      return spawn("test/fixtures/bin/exit-code 150")
         .then(() => {
           chai.assert(false, "An error should have been thrown, but it wasn't");
         })
@@ -75,15 +75,15 @@ for (let spawn of syntaxModes) {
           // Make sure the result is an error object
           expect(error).to.be.an.instanceOf(Error);
           expect(error.error).to.be.undefined;
-          expect(error.message).to.equal("Process was exited with code 256");
-          expect(error.toString()).to.equal("ProcessError: Process was exited with code 256");
+          expect(error.message).to.equal("Process was exited with code 150");
+          expect(error.toString()).to.equal("ProcessError: Process was exited with code 150");
 
           // Check the process output
           expect(error.command).to.equal("test/fixtures/bin/exit-code");
-          expect(error.status).to.equal(256);
+          expect(error.status).to.equal(150);
           expect(error.signal).to.equal(null);
           expect(error.stdout).to.equal("");
-          expect(error.stderr).to.equal("Process was exited with code 256\n");
+          expect(error.stderr).to.equal("Process was exited with code 150\n");
         });
     });
   });
