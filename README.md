@@ -4,10 +4,10 @@ EZ-Spawn
 #### Simple, consistent process spawning
 
 [![Cross-Platform Compatibility](https://jsdevtools.org/img/badges/os-badges.svg)](https://travis-ci.com/JS-DevTools/ez-spawn)
-[![Build Status](https://api.travis-ci.com/rkrauskopf/ez-spawn.svg?branch=master)](https://travis-ci.com/rkrauskopf/ez-spawn)
+[![Build Status](https://api.travis-ci.com/JS-DevTools/ez-spawn.svg?branch=master)](https://travis-ci.com/JS-DevTools/ez-spawn)
 
-[![Coverage Status](https://coveralls.io/repos/github/rkrauskopf/ez-spawn/badge.svg?branch=master)](https://coveralls.io/github/rkrauskopf/ez-spawn?branch=master)
-[![Dependencies](https://david-dm.org/rkrauskopf/ez-spawn.svg)](https://david-dm.org/rkrauskopf/ez-spawn)
+[![Coverage Status](https://coveralls.io/repos/github/JS-DevTools/ez-spawn/badge.svg?branch=master)](https://coveralls.io/github/JS-DevTools/ez-spawn?branch=master)
+[![Dependencies](https://david-dm.org/JS-DevTools/ez-spawn.svg)](https://david-dm.org/JS-DevTools/ez-spawn)
 
 [![npm](https://img.shields.io/npm/v/ez-spawn.svg?maxAge=43200)](https://www.npmjs.com/package/ez-spawn)
 [![License](https://img.shields.io/npm/l/ez-spawn.svg?maxAge=2592000)](LICENSE)
@@ -209,13 +209,13 @@ catch (error) {
 
 Contributing
 --------------------------
-Contributions, enhancements, and bug-fixes are welcome! [File an issue](https://github.com/rkrauskopf/ez-spawn/issues) on GitHub and [submit a pull request](https://github.com/rkrauskopf/ez-spawn/pulls).
+Contributions, enhancements, and bug-fixes are welcome! [File an issue](https://github.com/JS-DevTools/ez-spawn/issues) on GitHub and [submit a pull request](https://github.com/JS-DevTools/ez-spawn/pulls).
 
 #### Building/Testing
 To build/test the project locally on your computer:
 
 1. __Clone this repo__<br>
-`git clone hhttps://github.com/rkrauskopf/ez-spawn.git`
+`git clone hhttps://github.com/JS-DevTools/ez-spawn.git`
 
 2. __Install dependencies__<br>
 `npm install`
