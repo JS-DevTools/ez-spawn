@@ -16,7 +16,7 @@ os:
   - osx
   - windows
 
-script: npm run lint && npm run coverage
+script: npm run lint && npm run coverage && npm run test:typescript
 
 after_success:
   # send code-coverage data to Coveralls

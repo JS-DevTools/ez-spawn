@@ -32,6 +32,7 @@
   "scripts": {
     "lint": "eslint lib test",
     "test": "mocha && npm run lint",
+    "test:typescript": "tsc --noEmit test/specs/typescript-definition.spec.ts",
     "coverage": "nyc --reporter=text --reporter=lcov mocha",
     "upgrade": "npm-check -u",
     "bump": "bump --prompt --tag --push --all",
@@ -46,6 +47,7 @@
     "mocha": "^5.2.0",
     "npm-check": "^5.9.0",
     "nyc": "^13.1.0",
+    "typescript": "^3.2.2",
     "version-bump-prompt": "^4.2.2"
   },
   "dependencies": {
