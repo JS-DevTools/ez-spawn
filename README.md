@@ -16,7 +16,7 @@ EZ-Spawn
 Features
 --------------------------
 - **Flexible input parameters**<br>
-  Pass the program and arguments as a single string, an array of strings, separate parameters, or a mix of all three!
+  Pass the program and arguments as a single string, an array of strings, or as separate parameters.
 
 - **Pick your async syntax**<br>
   Supports Promises, `async`/`await`, or callbacks.
