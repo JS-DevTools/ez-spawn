@@ -3,6 +3,7 @@
 const chai = require("chai");
 const expect = chai.expect;
 const syntaxModes = require("../fixtures/syntax-modes");
+const isWindows = process.platform === "win32";
 
 for (let spawn of syntaxModes) {
   describe(`error handling (${spawn.name})`, () => {
@@ -106,7 +107,7 @@ for (let spawn of syntaxModes) {
             expect(error.command).to.equal("test/fixtures/bin/wrong-command");
             expect(error.args).to.deep.equal(["--foo", "--bar"]);
 
-            if (spawn.name === "syncSyntax" && process.platform === "win32") {
+            if (spawn.name === "syncSyntax" && isWindows) {
               // On Windows, cross-spawn tries to run the command via "cmd", so it has an exit code
               expect(error.status).to.equal(1);
             }
@@ -116,7 +117,14 @@ for (let spawn of syntaxModes) {
 
             expect(error.signal).to.equal(null);
             expect(error.stdout).to.equal("");
-            expect(error.stderr).to.contain("wrong-command");
+
+            if (isWindows) {
+              // Windows prints an error message like, "wrong-command is not a valid command"
+              expect(error.stderr).to.contain("wrong-command");
+            }
+            else {
+              expect(error.stderr).to.equal("");
+            }
           });
       });
 
@@ -135,7 +143,7 @@ for (let spawn of syntaxModes) {
             expect(error.command).to.equal("test/fixtures/bin/text-file");
             expect(error.args).to.deep.equal(["--foo", "--bar"]);
 
-            if (spawn.name === "syncSyntax" && process.platform === "win32") {
+            if (spawn.name === "syncSyntax" && isWindows) {
               // On Windows, cross-spawn tries to run the command via "cmd", so it has an exit code
               expect(error.status).to.equal(1);
             }
@@ -145,7 +153,14 @@ for (let spawn of syntaxModes) {
 
             expect(error.signal).to.equal(null);
             expect(error.stdout).to.equal("");
-            expect(error.stderr).to.contain("text-file");
+
+            if (isWindows) {
+              // Windows prints an error message like, "text-file is not a valid command"
+              expect(error.stderr).to.contain("text-file");
+            }
+            else {
+              expect(error.stderr).to.equal("");
+            }
           });
       });
     });
