@@ -16,13 +16,13 @@
   },
   "contributors": [
     "Randall Krauskopf (http://github.com/rkrauskopf)",
-    "James Messinger (http://bigstickcarpet.com)"
+    "James Messinger (https://jamesmessinger.com)"
   ],
   "license": "MIT",
   "homepage": "https://jsdevtools.org/ez-spawn",
   "repository": {
     "type": "git",
-    "url": "https://github.com/rkrauskopf/ez-spawn.git"
+    "url": "https://github.com/JS-DevTools/ez-spawn.git"
   },
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
