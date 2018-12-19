@@ -1,9 +1,9 @@
 import { SpawnSyncOptions } from "child_process";
 
-export = EzSpawn;
-export as namespace EzSpawn;
+export = ezSpawn;
+export as namespace ezSpawn;
 
-declare namespace EzSpawn {
+declare namespace ezSpawn {
   // Sync signatures without options
   function sync(command: string | string[]): Process;
   function sync(command: string, args: string[]): Process;
