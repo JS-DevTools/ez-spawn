@@ -54,8 +54,8 @@ for (let spawn of syntaxModes) {
           // Make sure the result is an error object
           expect(error).to.be.an.instanceOf(Error);
           expect(error.error).to.be.undefined;
-          expect(error.message).to.equal("Onoes!!!");
-          expect(error.toString()).to.equal("ProcessError: Onoes!!!");
+          expect(error.message).to.equal("test/fixtures/bin/exit-code 1 Onoes!!! exited with a status of 1.\n\nOnoes!!!");
+          expect(error.toString()).to.equal("ProcessError: test/fixtures/bin/exit-code 1 Onoes!!! exited with a status of 1.\n\nOnoes!!!");
 
           // Check the process output
           expect(error.command).to.equal("test/fixtures/bin/exit-code");
@@ -75,8 +75,8 @@ for (let spawn of syntaxModes) {
           // Make sure the result is an error object
           expect(error).to.be.an.instanceOf(Error);
           expect(error.error).to.be.undefined;
-          expect(error.message).to.equal("Process was exited with code 150");
-          expect(error.toString()).to.equal("ProcessError: Process was exited with code 150");
+          expect(error.message).to.equal("test/fixtures/bin/exit-code 150 exited with a status of 150.\n\nProcess was exited with code 150");
+          expect(error.toString()).to.equal("ProcessError: test/fixtures/bin/exit-code 150 exited with a status of 150.\n\nProcess was exited with code 150");
 
           // Check the process output
           expect(error.command).to.equal("test/fixtures/bin/exit-code");
