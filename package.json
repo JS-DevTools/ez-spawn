@@ -57,6 +57,6 @@
     "type-detect": "^4.0.8"
   },
   "engines": {
-    "node": ">=4"
+    "node": ">=6"
   }
 }
