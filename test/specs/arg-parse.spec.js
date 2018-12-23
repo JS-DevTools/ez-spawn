@@ -147,7 +147,25 @@ for (let spawn of syntaxModes) {
             expect(process.stderr.toString()).to.equal("");
             expect(process.stdout.toString()).to.equal(expectedOutput);
           });
+      });
 
+      it("should run a command with with commands and args with null options", () => {
+        return spawn("test/fixtures/bin/echo-args", '"foo bar"', '"baz fiz"', null)
+          .then((process) => {
+            // Make sure the process was spawned with the correct command and args
+            expect(process.command).to.equal("test/fixtures/bin/echo-args");
+            expect(process.args).to.deep.equal([
+              '"foo bar"', '"baz fiz"'
+            ]);
+
+            // The output should contain each argument on its own line
+            let expectedOutput =
+              'Argument #1: "foo bar"\n' +
+              'Argument #2: "baz fiz"\n';
+
+            expect(process.stderr.toString()).to.equal("");
+            expect(process.stdout.toString()).to.equal(expectedOutput);
+          });
       });
 
       it("should run a command with spaces in the name", () => {
@@ -253,6 +271,25 @@ for (let spawn of syntaxModes) {
 
       it("should run a command with with commands and args with an options object", () => {
         return spawn("test/fixtures/bin/echo-args", ['"foo bar"', '"baz fiz"'], { cwd: undefined })
+          .then((process) => {
+            // Make sure the process was spawned with the correct command and args
+            expect(process.command).to.equal("test/fixtures/bin/echo-args");
+            expect(process.args).to.deep.equal([
+              '"foo bar"', '"baz fiz"'
+            ]);
+
+            // The output should contain each argument on its own line
+            let expectedOutput =
+              'Argument #1: "foo bar"\n' +
+              'Argument #2: "baz fiz"\n';
+
+            expect(process.stderr.toString()).to.equal("");
+            expect(process.stdout.toString()).to.equal(expectedOutput);
+          });
+      });
+
+      it("should run a command with with commands and args with null options", () => {
+        return spawn("test/fixtures/bin/echo-args", ['"foo bar"', '"baz fiz"'], undefined)
           .then((process) => {
             // Make sure the process was spawned with the correct command and args
             expect(process.command).to.equal("test/fixtures/bin/echo-args");
@@ -392,6 +429,25 @@ for (let spawn of syntaxModes) {
 
       it("should run a command with with commands and args with an options object", () => {
         return spawn('test/fixtures/bin/echo-args "foo bar" "baz fiz"', { cwd: undefined })
+          .then((process) => {
+            // Make sure the process was spawned with the correct command and args
+            expect(process.command).to.equal("test/fixtures/bin/echo-args");
+            expect(process.args).to.deep.equal([
+              "foo bar", "baz fiz"
+            ]);
+
+            // The output should contain each argument on its own line
+            let expectedOutput =
+              "Argument #1: foo bar\n" +
+              "Argument #2: baz fiz\n";
+
+            expect(process.stderr.toString()).to.equal("");
+            expect(process.stdout.toString()).to.equal(expectedOutput);
+          });
+      });
+
+      it("should run a command with with commands and args with null options", () => {
+        return spawn('test/fixtures/bin/echo-args "foo bar" "baz fiz"', null)
           .then((process) => {
             // Make sure the process was spawned with the correct command and args
             expect(process.command).to.equal("test/fixtures/bin/echo-args");

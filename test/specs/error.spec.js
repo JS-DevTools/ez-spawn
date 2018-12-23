@@ -70,7 +70,7 @@ for (let spawn of syntaxModes) {
         });
     });
 
-    it("should throw an error if the command args are not strings or arrays", () => {
+    it("should throw an error if the command args are not strings", () => {
       return spawn("test/fixtures/bin/echo-args", ["--foo", {}])
         .then(() => {
           chai.assert(false, "no error was thrown");
