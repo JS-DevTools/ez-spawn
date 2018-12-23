@@ -42,7 +42,7 @@
     "@types/node": "^10.12.18",
     "chai": "^4.2.0",
     "coveralls": "^3.0.2",
-    "eslint": "^5.10.0",
+    "eslint": "^5.11.0",
     "eslint-config-modular": "^5.0.1",
     "mocha": "^5.2.0",
     "npm-check": "^5.9.0",
