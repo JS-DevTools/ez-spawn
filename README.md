@@ -70,7 +70,6 @@ ezSpawn.async(`git commit -am "Fixed a bug"`)
 
 Installation
 --------------------------
-#### Node
 Install using [npm](https://docs.npmjs.com/getting-started/what-is-npm):
 
 ```bash
