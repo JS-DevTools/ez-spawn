@@ -13,6 +13,7 @@ EZ-Spawn
 [![License](https://img.shields.io/npm/l/ez-spawn.svg?maxAge=2592000)](LICENSE)
 
 
+
 Features
 --------------------------
 - **Flexible input parameters**<br>
@@ -68,9 +69,11 @@ ezSpawn.async(`git commit -am "Fixed a bug"`)
   });
 ```
 
+
+
 Installation
 --------------------------
-Install using [npm](https://docs.npmjs.com/getting-started/what-is-npm):
+Install using [npm](https://docs.npmjs.com/about-npm/):
 
 ```bash
 npm install ez-spawn
@@ -83,8 +86,8 @@ Then require it in your code:
 const ezSpawn = require("ez-spawn");
 
 // Or require "sync" or "async" directly
-const async = require("ez-spawn").async;
-const sync = require("ez-spawn").sync;
+const ezSpawnSync = require("ez-spawn").sync;
+const ezSpawnAsync = require("ez-spawn").async;
 ```
 
 
