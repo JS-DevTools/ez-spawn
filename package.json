@@ -39,20 +39,20 @@
     "release": "npm run upgrade && npm test && npm run bump"
   },
   "devDependencies": {
-    "@types/node": "^12.7.4",
+    "@types/node": "^12.7.12",
     "chai": "^4.2.0",
-    "coveralls": "^3.0.6",
-    "eslint": "^6.3.0",
+    "coveralls": "^3.0.7",
+    "eslint": "^6.5.1",
     "eslint-config-modular": "^7.0.1",
-    "mocha": "^6.2.0",
+    "mocha": "^6.2.1",
     "npm-check": "^5.9.0",
     "nyc": "^14.1.1",
-    "typescript": "^3.6.3",
+    "typescript": "^3.6.4",
     "version-bump-prompt": "^5.0.5"
   },
   "dependencies": {
     "call-me-maybe": "^1.0.1",
-    "cross-spawn": "^7.0.0",
+    "cross-spawn": "^7.0.1",
     "string-argv": "^0.3.1",
     "type-detect": "^4.0.8"
   },
