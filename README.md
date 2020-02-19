@@ -1,4 +1,4 @@
-EZ-Spawn
+EZ Spawn
 =======================
 
 #### Simple, consistent process spawning
@@ -9,8 +9,8 @@ EZ-Spawn
 [![Coverage Status](https://coveralls.io/repos/github/JS-DevTools/ez-spawn/badge.svg?branch=master)](https://coveralls.io/github/JS-DevTools/ez-spawn?branch=master)
 [![Dependencies](https://david-dm.org/JS-DevTools/ez-spawn.svg)](https://david-dm.org/JS-DevTools/ez-spawn)
 
-[![npm](https://img.shields.io/npm/v/ez-spawn.svg?maxAge=43200)](https://www.npmjs.com/package/ez-spawn)
-[![License](https://img.shields.io/npm/l/ez-spawn.svg?maxAge=2592000)](LICENSE)
+[![npm](https://img.shields.io/npm/v/@jsdevtools/ez-spawn.svg?maxAge=43200)](https://www.npmjs.com/package/@jsdevtools/ez-spawn)
+[![License](https://img.shields.io/npm/l/@jsdevtools/ez-spawn.svg?maxAge=2592000)](LICENSE)
 
 
 
@@ -41,7 +41,7 @@ Examples
 --------------------------
 
 ```javascript
-const ezSpawn = require('ez-spawn');
+const ezSpawn = require('@jsdevtools/ez-spawn');
 
 // These are all identical
 ezSpawn.sync(`git commit -am "Fixed a bug"`);           // Pass program and args as a string
@@ -76,18 +76,18 @@ Installation
 Install using [npm](https://docs.npmjs.com/about-npm/):
 
 ```bash
-npm install ez-spawn
+npm install @jsdevtools/ez-spawn
 ```
 
 Then require it in your code:
 
 ```javascript
 // Require the whole package
-const ezSpawn = require("ez-spawn");
+const ezSpawn = require("@jsdevtools/ez-spawn");
 
 // Or require "sync" or "async" directly
-const ezSpawnSync = require("ez-spawn").sync;
-const ezSpawnAsync = require("ez-spawn").async;
+const ezSpawnSync = require("@jsdevtools/ez-spawn").sync;
+const ezSpawnAsync = require("@jsdevtools/ez-spawn").async;
 ```
 
 
@@ -196,7 +196,7 @@ Error Handling
 --------------------------
 All sorts of errors can occur when spawning processes.  Node's built-in [`spawn`](https://nodejs.org/api/child_process.html#child_process_child_process_spawn_command_args_options) and [`spawnSync`](https://nodejs.org/api/child_process.html#child_process_child_process_spawnsync_command_args_options) functions handle different types of errors in different ways.  Sometimes they throw the error, somtimes they emit an ["error" event](https://nodejs.org/docs/latest/api/child_process.html#child_process_event_error), and sometimes they return an object with an `error` property.  They also don't treat non-zero exit codes as errors.  So it's up to you to handle all these different types of errors, and check the exit code too.
 
-EZ-Spawn simplifies things by treating all errors the same.  If any error occurs, or if the process exits with a non-zero exit code, then an error is thrown.  The error will have all the same properties as the [`Process` object](#process-object), such as `status`, `stderr`, `signal`, etc.
+EZ Spawn simplifies things by treating all errors the same.  If any error occurs, or if the process exits with a non-zero exit code, then an error is thrown.  The error will have all the same properties as the [`Process` object](#process-object), such as `status`, `stderr`, `signal`, etc.
 
 ```javascript
 try {
@@ -228,7 +228,7 @@ To build/test the project locally on your computer:
 
 License
 --------------------------
-ez-spawn is 100% free and open-source, under the [MIT license](LICENSE). Use it however you want.
+EZ Spawn is 100% free and open-source, under the [MIT license](LICENSE). Use it however you want.
 
 
 Big Thanks To

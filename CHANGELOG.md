@@ -5,6 +5,17 @@ EZ Spawn adheres to [Semantic Versioning](http://semver.org/).
 
 
 
+[v3.0.0](https://github.com/JS-DevTools/ez-spawn/tree/v3.0.0) (2020-02-19)
+----------------------------------------------------------------------------------------------------
+
+- Moved EZ Spawn to the [@JSDevTools scope](https://www.npmjs.com/org/jsdevtools) on NPM
+
+- The "ez-spawn" NPM package is now just a wrapper around the scoped "@jsdevtools/ez-spawn" package
+
+[Full Changelog](https://github.com/JS-DevTools/ez-spawn/compare/v5.1.1...v3.0.0)
+
+
+
 [v2.1.0](https://github.com/JS-DevTools/ez-spawn/tree/v2.1.0) (2018-12-21)
 ----------------------------------------------------------------------------------------------------
 
