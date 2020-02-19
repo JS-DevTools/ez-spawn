@@ -1,16 +1,21 @@
-# Change Log
+Change Log
+====================================================================================================
 All notable changes will be documented in this file.
-`EZ-Spawn` adheres to [Semantic Versioning](http://semver.org/).
+EZ Spawn adheres to [Semantic Versioning](http://semver.org/).
 
 
-## [v2.1.0](https://github.com/JS-DevTools/ez-spawn/tree/v2.1.0) (2018-12-21)
+
+[v2.1.0](https://github.com/JS-DevTools/ez-spawn/tree/v2.1.0) (2018-12-21)
+----------------------------------------------------------------------------------------------------
 
 - If the process exits with a non-zero exit code, the error message now always includes the command, args, and exit code. If there was any stderr output, then that is appended to the error message as well.
 
 [Full Changelog](https://github.com/JS-DevTools/ez-spawn/compare/v2.0.0...v2.1.0)
 
 
-## [v2.0.0](https://github.com/JS-DevTools/ez-spawn/tree/v2.0.0) (2018-12-16)
+
+[v2.0.0](https://github.com/JS-DevTools/ez-spawn/tree/v2.0.0) (2018-12-16)
+----------------------------------------------------------------------------------------------------
 
 ### Breaking Changes
 
