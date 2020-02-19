@@ -1,0 +1,39 @@
+{
+  "name": "ez-spawn",
+  "version": "X.X.X",
+  "description": "Simple, consistent sync or async process spawning",
+  "keywords": [
+    "cli",
+    "process",
+    "spawn",
+    "exec",
+    "sync",
+    "async"
+  ],
+  "author": {
+    "name": "Randall Krauskopf",
+    "url": "http://github.com/rkrauskopf"
+  },
+  "contributors": [
+    "Randall Krauskopf (http://github.com/rkrauskopf)",
+    "James Messinger (https://jamesmessinger.com)"
+  ],
+  "license": "MIT",
+  "homepage": "https://jstools.dev/ez-spawn",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JS-DevTools/ez-spawn.git"
+  },
+  "main": "index.js",
+  "types": "index.d.ts",
+  "files": [
+    "index.js",
+    "index.d.ts"
+  ],
+  "engines": {
+    "node": ">=10"
+  },
+  "dependencies": {
+    "@jsdevtools/ez-spawn": "X.X.X"
+  }
+}
