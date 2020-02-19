@@ -3,8 +3,8 @@ EZ-Spawn
 
 #### Simple, consistent process spawning
 
-[![Cross-Platform Compatibility](https://jstools.dev/img/badges/os-badges.svg)](https://travis-ci.com/JS-DevTools/ez-spawn)
-[![Build Status](https://api.travis-ci.com/JS-DevTools/ez-spawn.svg?branch=master)](https://travis-ci.com/JS-DevTools/ez-spawn)
+[![Cross-Platform Compatibility](https://jstools.dev/img/badges/os-badges.svg)](https://github.com/JS-DevTools/ez-spawn/blob/master/.github/workflows/CI-CD.yaml)
+[![Build Status](https://github.com/JS-DevTools/ez-spawn/workflows/CI-CD/badge.svg)](https://github.com/JS-DevTools/ez-spawn/blob/master/.github/workflows/CI-CD.yaml)
 
 [![Coverage Status](https://coveralls.io/repos/github/JS-DevTools/ez-spawn/badge.svg?branch=master)](https://coveralls.io/github/JS-DevTools/ez-spawn?branch=master)
 [![Dependencies](https://david-dm.org/JS-DevTools/ez-spawn.svg)](https://david-dm.org/JS-DevTools/ez-spawn)
