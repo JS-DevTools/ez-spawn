@@ -42,15 +42,15 @@
   },
   "devDependencies": {
     "@jsdevtools/eslint-config-modular": "^8.0.0",
-    "@jsdevtools/version-bump-prompt": "^6.0.1",
-    "@types/node": "^13.7.2",
+    "@jsdevtools/version-bump-prompt": "^6.0.2",
+    "@types/node": "^13.9.0",
     "chai": "^4.2.0",
     "eslint": "^6.6.0",
-    "mocha": "^7.0.1",
-    "npm-check": "^5.9.0",
+    "mocha": "^7.1.0",
+    "npm-check": "^5.9.2",
     "nyc": "^15.0.0",
     "shx": "^0.3.2",
-    "typescript": "^3.7.2"
+    "typescript": "^3.8.3"
   },
   "dependencies": {
     "call-me-maybe": "^1.0.1",
