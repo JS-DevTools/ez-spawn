@@ -11,7 +11,7 @@ EZ Spawn
 
 [![npm](https://img.shields.io/npm/v/@jsdevtools/ez-spawn.svg)](https://www.npmjs.com/package/@jsdevtools/ez-spawn)
 [![License](https://img.shields.io/npm/l/@jsdevtools/ez-spawn.svg)](LICENSE)
-[![Buy us a tree](https://img.shields.io/badge/Treeware-%F0%9F%8C%B3-lightgreen)](https://plant.treeware.earth/JS-DevTools/XXXXXXXXXXXXXXXXXXXXXXXXX)
+[![Buy us a tree](https://img.shields.io/badge/Treeware-%F0%9F%8C%B3-lightgreen)](https://plant.treeware.earth/JS-DevTools/ez-spawn)
 
 
 
@@ -33,9 +33,11 @@ Features
   Excellent Windows support, thanks to [cross-spawn](https://github.com/moxystudio/node-cross-spawn).
 
 
+
 Related Projects
 --------------------------
 - [chai-exec](https://github.com/JS-DevTools/chai-exec) - Chai assertion plugin for testing CLIs
+
 
 
 Examples
@@ -90,6 +92,7 @@ const ezSpawn = require("@jsdevtools/ez-spawn");
 const ezSpawnSync = require("@jsdevtools/ez-spawn").sync;
 const ezSpawnAsync = require("@jsdevtools/ez-spawn").async;
 ```
+
 
 
 API
@@ -193,6 +196,7 @@ Asynchronously spawns a process.  The Promise resolves (or the callback is calle
   Returns the `command` and `args` as a single string.  Useful for console logging.
 
 
+
 Error Handling
 --------------------------
 All sorts of errors can occur when spawning processes.  Node's built-in [`spawn`](https://nodejs.org/api/child_process.html#child_process_child_process_spawn_command_args_options) and [`spawnSync`](https://nodejs.org/api/child_process.html#child_process_child_process_spawnsync_command_args_options) functions handle different types of errors in different ways.  Sometimes they throw the error, somtimes they emit an ["error" event](https://nodejs.org/docs/latest/api/child_process.html#child_process_event_error), and sometimes they return an object with an `error` property.  They also don't treat non-zero exit codes as errors.  So it's up to you to handle all these different types of errors, and check the exit code too.
@@ -208,6 +212,7 @@ catch (error) {
   console.error("Something went wrong!", error.status, error.stderr);
 }
 ```
+
 
 
 Contributing
@@ -227,9 +232,13 @@ To build/test the project locally on your computer:
 `npm test`
 
 
+
 License
 --------------------------
 EZ Spawn is 100% free and open-source, under the [MIT license](LICENSE). Use it however you want.
+
+This package is [Treeware](http://treeware.earth). If you use it in production, then we ask that you [**buy the world a tree**](https://plant.treeware.earth/JS-DevTools/ez-spawn) to thank us for our work. By contributing to the Treeware forest you’ll be creating employment for local families and restoring wildlife habitats.
+
 
 
 Big Thanks To
