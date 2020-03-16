@@ -9,8 +9,9 @@ EZ Spawn
 [![Coverage Status](https://coveralls.io/repos/github/JS-DevTools/ez-spawn/badge.svg?branch=master)](https://coveralls.io/github/JS-DevTools/ez-spawn?branch=master)
 [![Dependencies](https://david-dm.org/JS-DevTools/ez-spawn.svg)](https://david-dm.org/JS-DevTools/ez-spawn)
 
-[![npm](https://img.shields.io/npm/v/@jsdevtools/ez-spawn.svg?maxAge=43200)](https://www.npmjs.com/package/@jsdevtools/ez-spawn)
-[![License](https://img.shields.io/npm/l/@jsdevtools/ez-spawn.svg?maxAge=2592000)](LICENSE)
+[![npm](https://img.shields.io/npm/v/@jsdevtools/ez-spawn.svg)](https://www.npmjs.com/package/@jsdevtools/ez-spawn)
+[![License](https://img.shields.io/npm/l/@jsdevtools/ez-spawn.svg)](LICENSE)
+[![Buy us a tree](https://img.shields.io/badge/Treeware-%F0%9F%8C%B3-lightgreen)](https://plant.treeware.earth/JS-DevTools/XXXXXXXXXXXXXXXXXXXXXXXXX)
 
 
 
