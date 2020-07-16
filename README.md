@@ -3,8 +3,8 @@ EZ Spawn
 
 #### Simple, consistent process spawning
 
-[![Cross-Platform Compatibility](https://jstools.dev/img/badges/os-badges.svg)](https://github.com/JS-DevTools/ez-spawn/blob/master/.github/workflows/CI-CD.yaml)
-[![Build Status](https://github.com/JS-DevTools/ez-spawn/workflows/CI-CD/badge.svg)](https://github.com/JS-DevTools/ez-spawn/blob/master/.github/workflows/CI-CD.yaml)
+[![Cross-Platform Compatibility](https://jstools.dev/img/badges/os-badges.svg)](https://github.com/JS-DevTools/ez-spawn/actions)
+[![Build Status](https://github.com/JS-DevTools/ez-spawn/workflows/CI-CD/badge.svg)](https://github.com/JS-DevTools/ez-spawn/actions)
 
 [![Coverage Status](https://coveralls.io/repos/github/JS-DevTools/ez-spawn/badge.svg?branch=master)](https://coveralls.io/github/JS-DevTools/ez-spawn?branch=master)
 [![Dependencies](https://david-dm.org/JS-DevTools/ez-spawn.svg)](https://david-dm.org/JS-DevTools/ez-spawn)
@@ -217,7 +217,7 @@ catch (error) {
 
 Contributing
 --------------------------
-Contributions, enhancements, and bug-fixes are welcome! [File an issue](https://github.com/JS-DevTools/ez-spawn/issues) on GitHub and [submit a pull request](https://github.com/JS-DevTools/ez-spawn/pulls).
+Contributions, enhancements, and bug-fixes are welcome! [Open an issue](https://github.com/JS-DevTools/ez-spawn/issues) on GitHub and [submit a pull request](https://github.com/JS-DevTools/ez-spawn/pulls).
 
 #### Building/Testing
 To build/test the project locally on your computer:
