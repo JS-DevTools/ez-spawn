@@ -1,12 +1,18 @@
-import ezSpawn = require("../../lib");
-import { Process, ProcessError, Options, BufferOptions } from "../../lib";
+import * as ezSpawn from "../../lib";
+import { BufferOptions, Options, Process, ProcessError } from "../../lib";
 
 let process: Process;
 let bufferProcess: Process<Buffer>;
 let options: Options = { cwd: "/usr/local/bin" };
 let bufferOptions: BufferOptions = { cwd: "/usr/local/bin", encoding: "buffer" };
-let callback = (err: Error, process: Process) => console.log(err, process);
-let bufferCallback = (err: Error, process: Process<Buffer>) => console.log(err, process);
+
+function callback(err: Error, process: Process) {
+  console.log(err, process);
+}
+
+function bufferCallback(err: Error, process: Process<Buffer>) {
+  console.log(err, process);
+}
 
 export function testSyncSignatures() {
   // Sync signatures without options
@@ -80,8 +86,8 @@ export function testOptionsInterface() {
   options.encoding = "hex";
   options.cwd = "/usr/local/bin";
   options.env = {
-    "PATH": "/usr/local/bin",
-    "USER": undefined,
+    PATH: "/usr/local/bin",   // eslint-disable-line @typescript-eslint/naming-convention
+    USER: undefined,          // eslint-disable-line @typescript-eslint/naming-convention
   };
   options.argv0 = "node";
   options.stdio = "ignore";
@@ -107,8 +113,8 @@ export function testBufferOptionsInterface() {
   bufferOptions = { encoding: "buffer" };
   bufferOptions.cwd = "/usr/local/bin";
   bufferOptions.env = {
-    "PATH": "/usr/local/bin",
-    "USER": undefined,
+    PATH: "/usr/local/bin",   // eslint-disable-line @typescript-eslint/naming-convention
+    USER: undefined,          // eslint-disable-line @typescript-eslint/naming-convention
   };
   bufferOptions.argv0 = "node";
   bufferOptions.stdio = "ignore";
@@ -131,7 +137,7 @@ export function testBufferOptionsInterface() {
 }
 
 export function testProcessInterface() {
-  process.command.trim()                              // string
+  process.command.trim();                              // string
   process.args.forEach((arg) => arg.trim());          // array of strings
   process.pid.toPrecision();                          // number
   process.stdout.trim();                              // string
@@ -143,7 +149,7 @@ export function testProcessInterface() {
   process.signal.trim();                              // string
   process.toString().trim();                          // string
 
-  bufferProcess.command.trim()                        // string
+  bufferProcess.command.trim();                        // string
   bufferProcess.args.forEach((arg) => arg.trim());    // array of strings
   bufferProcess.pid.toPrecision();                    // number
   bufferProcess.stdout.fill(0);                       // Buffer
@@ -161,7 +167,7 @@ export function testProcessErrorInterface() {
   error.name.trim();                                // string
   error.message.trim();                             // string
   error.stack.trim();                               // string
-  error.command.trim()                              // string
+  error.command.trim();                              // string
   error.args.forEach((arg) => arg.trim());          // array of strings
   error.pid.toPrecision();                          // number
   error.stdout.trim();                              // string
@@ -177,7 +183,7 @@ export function testProcessErrorInterface() {
   error.name.trim();                                // string
   error.message.trim();                             // string
   error.stack.trim();                               // string
-  bufferError.command.trim()                        // string
+  bufferError.command.trim();                        // string
   bufferError.args.forEach((arg) => arg.trim());    // array of strings
   bufferError.pid.toPrecision();                    // number
   bufferError.stdout.fill(0);                       // Buffer

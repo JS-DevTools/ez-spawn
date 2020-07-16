@@ -34,10 +34,10 @@ for (let spawn of syntaxModes) {
           expect(process.stdout).to.equal(files.smallTextFile.text);
 
           // stderr should be empty
-          expect(process.stderr).to.be.a("string").and.empty;
+          expect(process.stderr).to.be.a("string").with.lengthOf(0);
 
           // Output should match stdout and stderr
-          expect(process.output[0]).to.be.null;
+          expect(process.output[0]).to.equal(null);
           expect(process.output[1]).to.equal(process.stdout);
           expect(process.output[2]).to.equal(process.stderr);
         });
@@ -57,7 +57,7 @@ for (let spawn of syntaxModes) {
           expect(process.stderr).to.have.lengthOf(0);
 
           // Output should match stdout and stderr
-          expect(process.output[0]).to.be.null;
+          expect(process.output[0]).to.equal(null);
           expect(process.output[1]).to.equal(process.stdout);
           expect(process.output[2]).to.equal(process.stderr);
         });
@@ -77,7 +77,7 @@ for (let spawn of syntaxModes) {
           expect(process.stderr).to.have.lengthOf(0);
 
           // Output should match stdout and stderr
-          expect(process.output[0]).to.be.null;
+          expect(process.output[0]).to.equal(null);
           expect(process.output[1]).to.equal(process.stdout);
           expect(process.output[2]).to.equal(process.stderr);
         });
@@ -87,13 +87,13 @@ for (let spawn of syntaxModes) {
       return spawn(`${echoFileBin} --stderr ${files.smallTextFile.path}`)
         .then((process) => {
           // stdout should be empty
-          expect(process.stdout).to.be.a("string").and.empty;
+          expect(process.stdout).to.be.a("string").with.lengthOf(0);
 
           // stderr should match the file contents
           expect(process.stderr).to.equal(files.smallTextFile.text);
 
           // Output should match stdout and stderr
-          expect(process.output[0]).to.be.null;
+          expect(process.output[0]).to.equal(null);
           expect(process.output[1]).to.equal(process.stdout);
           expect(process.output[2]).to.equal(process.stderr);
         });
@@ -113,7 +113,7 @@ for (let spawn of syntaxModes) {
           expect(process.stderr).to.deep.equal(files.smallTextFile.buffer);
 
           // Output should match stdout and stderr
-          expect(process.output[0]).to.be.null;
+          expect(process.output[0]).to.equal(null);
           expect(process.output[1]).to.equal(process.stdout);
           expect(process.output[2]).to.equal(process.stderr);
         });
@@ -131,7 +131,7 @@ for (let spawn of syntaxModes) {
           expect(process.stderr).to.equal(files.smallTextFile.text);
 
           // Output should match stdout and stderr
-          expect(process.output[0]).to.be.null;
+          expect(process.output[0]).to.equal(null);
           expect(process.output[1]).to.equal(process.stdout);
           expect(process.output[2]).to.equal(process.stderr);
         });
@@ -154,7 +154,7 @@ for (let spawn of syntaxModes) {
           expect(process.stderr).to.deep.equal(files.smallTextFile.buffer);
 
           // Output should match stdout and stderr
-          expect(process.output[0]).to.be.null;
+          expect(process.output[0]).to.equal(null);
           expect(process.output[1]).to.equal(process.stdout);
           expect(process.output[2]).to.equal(process.stderr);
         });
@@ -177,7 +177,7 @@ for (let spawn of syntaxModes) {
           expect(process.stderr).to.deep.equal(files.smallTextFile.buffer);
 
           // Output should match stdout and stderr
-          expect(process.output[0]).to.be.null;
+          expect(process.output[0]).to.equal(null);
           expect(process.output[1]).to.equal(process.stdout);
           expect(process.output[2]).to.equal(process.stderr);
         });
@@ -190,10 +190,10 @@ for (let spawn of syntaxModes) {
           expect(process.stdout).to.equal(files.smallTextFile.text + files.smallTextFile.text);
 
           // stderr be empty
-          expect(process.stderr).to.be.a("string").and.empty;
+          expect(process.stderr).to.be.a("string").with.lengthOf(0);
 
           // Output should match stdout and stderr
-          expect(process.output[0]).to.be.null;
+          expect(process.output[0]).to.equal(null);
           expect(process.output[1]).to.equal(process.stdout);
           expect(process.output[2]).to.equal(process.stderr);
         });
@@ -219,7 +219,7 @@ for (let spawn of syntaxModes) {
           expect(process.stderr).to.have.lengthOf(0);
 
           // Output should match stdout and stderr
-          expect(process.output[0]).to.be.null;
+          expect(process.output[0]).to.equal(null);
           expect(process.output[1]).to.equal(process.stdout);
           expect(process.output[2]).to.equal(process.stderr);
         });
@@ -239,7 +239,7 @@ for (let spawn of syntaxModes) {
           expect(process.stderr).to.equal(files.largeTextFile.text + files.smallTextFile.text);
 
           // Output should match stdout and stderr
-          expect(process.output[0]).to.be.null;
+          expect(process.output[0]).to.equal(null);
           expect(process.output[1]).to.equal(process.stdout);
           expect(process.output[2]).to.equal(process.stderr);
         });
@@ -269,7 +269,7 @@ for (let spawn of syntaxModes) {
           ]));
 
           // Output should match stdout and stderr
-          expect(process.output[0]).to.be.null;
+          expect(process.output[0]).to.equal(null);
           expect(process.output[1]).to.equal(process.stdout);
           expect(process.output[2]).to.equal(process.stderr);
         });
@@ -292,7 +292,7 @@ for (let spawn of syntaxModes) {
           );
 
           // Output should match stdout and stderr
-          expect(process.output[0]).to.be.null;
+          expect(process.output[0]).to.equal(null);
           expect(process.output[1]).to.equal(process.stdout);
           expect(process.output[2]).to.equal(process.stderr);
         });
@@ -324,7 +324,7 @@ for (let spawn of syntaxModes) {
           ]));
 
           // Output should match stdout and stderr
-          expect(process.output[0]).to.be.null;
+          expect(process.output[0]).to.equal(null);
           expect(process.output[1]).to.equal(process.stdout);
           expect(process.output[2]).to.equal(process.stderr);
         });

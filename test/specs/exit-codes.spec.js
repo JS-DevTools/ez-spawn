@@ -11,8 +11,8 @@ for (let spawn of syntaxModes) {
         .then((process) => {
           // Make sure the result is NOT an error object
           expect(process).to.not.be.an.instanceOf(Error);
-          expect(process.error).to.be.undefined;
-          expect(process.message).to.be.undefined;
+          expect(process.error).to.equal(undefined);
+          expect(process.message).to.equal(undefined);
           expect(process.toString()).to.equal("test/fixtures/bin/exit-code 0");
 
           // Check the process output
@@ -32,7 +32,7 @@ for (let spawn of syntaxModes) {
         .catch((error) => {
           // Make sure the result is an error object
           expect(error).to.be.an.instanceOf(Error);
-          expect(error.error).to.be.undefined;
+          expect(error.error).to.equal(undefined);
           expect(error.message).to.equal("test/fixtures/bin/exit-code 1 --silent exited with a status of 1.");
           expect(error.toString()).to.equal("ProcessError: test/fixtures/bin/exit-code 1 --silent exited with a status of 1.");
 
@@ -53,7 +53,7 @@ for (let spawn of syntaxModes) {
         .catch((error) => {
           // Make sure the result is an error object
           expect(error).to.be.an.instanceOf(Error);
-          expect(error.error).to.be.undefined;
+          expect(error.error).to.equal(undefined);
           expect(error.message).to.equal("test/fixtures/bin/exit-code 1 Onoes!!! exited with a status of 1.\n\nOnoes!!!");
           expect(error.toString()).to.equal("ProcessError: test/fixtures/bin/exit-code 1 Onoes!!! exited with a status of 1.\n\nOnoes!!!");
 
@@ -74,7 +74,7 @@ for (let spawn of syntaxModes) {
         .catch((error) => {
           // Make sure the result is an error object
           expect(error).to.be.an.instanceOf(Error);
-          expect(error.error).to.be.undefined;
+          expect(error.error).to.equal(undefined);
           expect(error.message).to.equal("test/fixtures/bin/exit-code 150 exited with a status of 150.\n\nProcess was exited with code 150");
           expect(error.toString()).to.equal("ProcessError: test/fixtures/bin/exit-code 150 exited with a status of 150.\n\nProcess was exited with code 150");
 
